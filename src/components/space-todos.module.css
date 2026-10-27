@@ -1,0 +1,31 @@
+.surface{display:grid;gap:10px;min-width:0;overflow-wrap:anywhere;border:1px solid var(--line);border-radius:8px;padding:14px;box-sizing:border-box;background:var(--space-component-surface)}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.head h2,.head h3{margin:0;font-size:18px}
+.count{font-size:13px;color:var(--muted)}
+.notice{margin:0;font-size:13px;line-height:1.6;color:var(--muted)}
+.list{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:14px}
+.item{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:0;overflow-wrap:anywhere}
+.marker{width:9px;height:9px;border-radius:50%;margin-top:6px;background:var(--line);flex:none}
+.marker.urgent{background:#c0392b}
+.title{margin:0;font-weight:600}
+.kind{font-size:12px;color:var(--muted);margin:2px 0 0}
+.done{margin:4px 0 0;font-size:13px;color:var(--muted);line-height:1.55}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.link{color:var(--action);font-weight:600;font-size:13px;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.secondary{border:0;background:transparent;color:var(--action);padding:6px 0;font-size:13px;cursor:pointer}
+.textButton{background:none;border:0;color:var(--action);font-size:13px;cursor:pointer;padding:0}
+.field{display:grid;gap:5px;margin-top:10px}
+.field label{font-size:13px;font-weight:600}
+.field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:8px 10px;font:inherit;font-size:14px}
+.error{margin:8px 0 0;font-size:13px;color:#c0392b}
+.noticeLine{margin:8px 0 0;font-size:13px;color:var(--action)}
+.details{font-size:12px;color:var(--muted)}
+.details summary,.manualBox summary{cursor:pointer;min-height:32px;padding:6px 0}
+.details ul{margin:4px 0;padding-left:18px}
+.details li{line-height:1.6}
+.empty{margin:12px 0 0;font-size:13px;color:var(--muted)}
+.manualBox{margin:0;font-size:13px}
+.manualList{display:grid;gap:8px;margin:4px 0}
+.surface :is(button,a,summary):focus-visible{outline:2px solid var(--action);outline-offset:3px}
+.surface button:disabled{opacity:.5;cursor:default}
+@media (max-width:640px){.item{gap:8px}.surface :is(button,a,summary){min-height:40px}.actions{margin-top:4px}}

@@ -1,0 +1,10 @@
+.panel { margin-block: 1rem; }
+.panel p { color: #635950; line-height: 1.6; }
+.group { margin-block: 1rem; padding-block: .5rem; border-top: 1px solid #e8ddd2; }
+.group h4 { margin-block: .5rem; }
+.scroll { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.table th, .table td { border: 1px solid #e8ddd2; padding: .7rem; text-align: left; vertical-align: top; white-space: pre-wrap; overflow-wrap: anywhere; }
+.table thead th { background: #f8f1e8; }
+.table tbody th { width: 24%; font-weight: 600; }
+.table td { width: 38%; min-width: 10rem; }

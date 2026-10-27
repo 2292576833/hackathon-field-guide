@@ -1,0 +1,26 @@
+# Add only on the cloud host. The account grant is never copied into the image.
+services:
+  migrate:
+    volumes:
+      - type: bind
+        source: ${DSH_ACCOUNT_GRANT_FILE:?Set the private account grant file path}
+        target: /run/secrets/dsh-account.json
+        read_only: true
+        bind:
+          create_host_path: false
+  web:
+    volumes:
+      - type: bind
+        source: ${DSH_ACCOUNT_GRANT_FILE:?Set the private account grant file path}
+        target: /run/secrets/dsh-account.json
+        read_only: true
+        bind:
+          create_host_path: false
+  worker:
+    volumes:
+      - type: bind
+        source: ${DSH_ACCOUNT_GRANT_FILE:?Set the private account grant file path}
+        target: /run/secrets/dsh-account.json
+        read_only: true
+        bind:
+          create_host_path: false

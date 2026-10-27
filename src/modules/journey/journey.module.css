@@ -1,0 +1,699 @@
+.tree {
+  --journey-paper: var(--paper, #f6f3eb);
+  --journey-ink: var(--ink, #21201c);
+  --journey-muted: var(--muted, #666257);
+  --journey-action: var(--action, #b8351e);
+  --journey-line: #c4bcae;
+  --journey-tint: var(--tint);
+  min-width: 0;
+  color: var(--journey-ink);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.pageIntro > div { padding-top: 20px; }
+.pageIntro h1 { margin: 8px 0; }
+.pageIntro p { margin: 6px 0; }
+.pageIntro > div > div { margin: 8px 0 16px; }
+
+.tree *,
+.tree *::before,
+.tree *::after {
+  box-sizing: border-box;
+}
+
+.tree :is(a, summary, section):focus-visible {
+  outline: 3px solid var(--journey-action);
+  outline-offset: 4px;
+}
+
+.guideNotes {
+  max-width: 850px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--journey-muted);
+}
+
+.guideNotes p {
+  margin: 0 0 8px;
+}
+
+.guideNotes strong {
+  color: var(--journey-ink);
+}
+
+.guideNotes summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--journey-action); text-decoration: underline; text-underline-offset: 4px; }
+.guideNotes details p { max-width: 720px; }
+
+.phaseNavigation {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 12px;
+  margin-top: 14px;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--journey-line);
+}
+
+.navigationLabel,
+.resourceLabel {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--journey-muted);
+}
+
+.phaseShortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.phaseShortcuts li {
+  min-width: 0;
+}
+
+.phaseShortcuts a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--journey-action);
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.shortcutNumber,
+.phaseNumber {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.shortcutNumber {
+  font-size: 12px;
+  color: var(--journey-muted);
+}
+
+.diagram {
+  padding-top: 4px;
+}
+
+.root {
+  position: relative;
+  max-width: 660px;
+  margin-inline: auto;
+  padding: 20px 24px;
+  border: 1px solid var(--journey-action);
+  border-top: 4px solid var(--journey-action);
+  border-radius: 12px;
+  background: var(--space-component-surface);
+  text-align: center;
+}
+
+.root::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 43px;
+  background: var(--journey-action);
+  pointer-events: none;
+}
+
+.rootLabel {
+  margin: 0 0 8px;
+  color: var(--journey-action);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.rootTitle {
+  margin: 0;
+  font-size: clamp(24px, 2.7vw, 32px);
+  line-height: 1.35;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+.rootDescription {
+  margin: 12px auto 0;
+  max-width: 38em;
+  font-size: 16px;
+  color: var(--journey-muted);
+}
+
+.rootActions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.primaryLink,
+.secondaryLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--journey-action);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.primaryLink {
+  background: var(--journey-action);
+  color: var(--surface);
+}
+
+.secondaryLink {
+  background: var(--space-component-surface);
+  color: var(--journey-action);
+}
+
+.spaceNote {
+  margin: 14px 0 0;
+  font-size: 14px;
+  color: var(--journey-muted);
+}
+
+.phases {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 24px;
+  list-style: none;
+  padding: 40px 0 0;
+  margin: 42px 0 0;
+}
+
+.phases::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc((100% - 48px) / 6);
+  right: calc((100% - 48px) / 6);
+  height: 2px;
+  background: var(--journey-action);
+  pointer-events: none;
+}
+
+.phaseBranch {
+  position: relative;
+  min-width: 0;
+}
+
+.phaseBranch::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 40px;
+  background: var(--journey-action);
+  pointer-events: none;
+}
+
+.phase {
+  min-width: 0;
+  scroll-margin-top: 24px;
+  border-radius: 8px;
+}
+
+.phaseHead {
+  position: relative;
+  padding: 20px 16px 18px;
+  border-top: 2px solid var(--journey-action);
+  border-bottom: 1px solid var(--journey-line);
+  border-radius: 8px 8px 0 0;
+  background: var(--journey-tint);
+  text-align: center;
+}
+
+.phaseHead::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: calc(50% - 7px);
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--journey-action);
+  border-radius: 50%;
+  background: var(--journey-paper);
+  pointer-events: none;
+}
+
+.phaseNumber {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--journey-action);
+}
+
+.phaseTitle {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.4;
+}
+
+.phaseDescription {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--journey-muted);
+}
+
+.cautions {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--journey-line);
+  background: var(--space-component-surface);
+  color: var(--journey-muted);
+  font-size: 14px;
+}
+
+.cautions summary {
+  min-height: 44px;
+  padding: 10px 0;
+  cursor: pointer;
+  color: var(--journey-action);
+  font-weight: 650;
+}
+
+.cautions summary::marker {
+  color: var(--journey-action);
+}
+
+.cautionCount {
+  display: inline-block;
+  margin-left: 8px;
+  color: var(--journey-muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.cautions ul {
+  margin: 4px 0 10px;
+  padding-left: 20px;
+}
+
+.cautions li + li {
+  margin-top: 10px;
+}
+
+.actions {
+  position: relative;
+  list-style: none;
+  padding: 0 0 0 24px;
+  margin: 0 0 0 10px;
+}
+
+.actionBranch {
+  position: relative;
+  padding: 24px 0 12px;
+  min-width: 0;
+}
+
+.actionBranch::before {
+  content: "";
+  position: absolute;
+  left: -24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--journey-line);
+  pointer-events: none;
+}
+
+.actionBranch:last-child::before {
+  bottom: auto;
+  height: 38px;
+}
+
+.actionNode {
+  position: relative;
+  min-width: 0;
+}
+
+.actionNode::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: -24px;
+  width: 18px;
+  height: 2px;
+  background: var(--journey-line);
+  pointer-events: none;
+}
+
+.actionNode::after {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: -28px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--journey-action);
+  border-radius: 50%;
+  background: var(--journey-paper);
+  pointer-events: none;
+}
+
+.actionTitle {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.actionDescription {
+  margin: 8px 0 4px;
+  font-size: 15px;
+  color: var(--journey-muted);
+}
+
+.parallelNote {
+  margin: 10px 0 4px;
+  padding: 8px 10px;
+  border-left: 2px solid var(--journey-action);
+  background: var(--journey-tint);
+  color: var(--journey-muted);
+  font-size: 14px;
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 2px;
+  color: var(--journey-action);
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.actionLink > span:first-child {
+  min-width: 0;
+}
+
+.resourceBranch {
+  --resource-indent: 12px;
+  margin-top: 8px;
+  padding-left: var(--resource-indent);
+}
+
+.resourceLabel {
+  position: relative;
+  margin: 0 0 2px;
+  min-height: 44px;
+  padding: 10px 0;
+  cursor: pointer;
+  color: var(--journey-action);
+}
+
+.resourceLabel::marker {
+  color: var(--journey-action);
+}
+
+.resourceLabel::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  bottom: -2px;
+  left: calc(-1 * var(--resource-indent));
+  width: calc(var(--resource-indent) + 1px);
+  border-left: 1px solid var(--journey-line);
+  border-bottom: 1px solid var(--journey-line);
+  pointer-events: none;
+}
+
+.resources {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resourceNode {
+  position: relative;
+  padding-left: 16px;
+  min-width: 0;
+}
+
+.resourceNode::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--journey-line);
+  pointer-events: none;
+}
+
+.resourceNode:last-child::before {
+  bottom: auto;
+  height: 24px;
+}
+
+.resourceNode::after {
+  content: "";
+  position: absolute;
+  top: 23px;
+  left: 0;
+  width: 10px;
+  height: 1px;
+  background: var(--journey-line);
+  pointer-events: none;
+}
+
+.resourceLink {
+  display: block;
+  min-height: 44px;
+  padding: 10px 4px 10px 0;
+  border-radius: 4px;
+  color: var(--journey-action);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.resourceTitle {
+  display: block;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.resourceArrow {
+  white-space: nowrap;
+}
+
+.resourceDescription {
+  display: block;
+  margin-top: 4px;
+  color: var(--journey-muted);
+  font-size: 14px;
+}
+
+@media (hover: hover) {
+  .phaseShortcuts a:hover,
+  .resourceLink:hover,
+  .secondaryLink:hover {
+    background: var(--journey-tint);
+  }
+
+  .primaryLink:hover {
+    background: var(--action-hover);
+  }
+
+  .actionLink:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .diagram {
+    position: relative;
+    padding: 20px 0 0 26px;
+  }
+
+  .diagram::before {
+    content: "";
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: var(--journey-action);
+    pointer-events: none;
+  }
+
+  .root {
+    max-width: none;
+    padding: 18px;
+    text-align: left;
+  }
+
+  .root::after {
+    top: 32px;
+    left: -27px;
+    width: 26px;
+    height: 2px;
+  }
+
+  .rootActions {
+    justify-content: flex-start;
+  }
+
+  .phaseNavigation {
+    justify-content: flex-start;
+  }
+
+  .phases {
+    display: block;
+    padding: 0;
+    margin-top: 32px;
+  }
+
+  .phases::before {
+    display: none;
+  }
+
+  .phaseBranch {
+    padding-bottom: 32px;
+  }
+
+  .phaseBranch::before {
+    top: 35px;
+    left: -26px;
+    width: 26px;
+    height: 2px;
+  }
+
+  .phaseHead {
+    padding: 18px;
+    text-align: left;
+  }
+
+  .phaseHead::before {
+    top: 27px;
+    left: -32px;
+  }
+
+  .phaseNumber {
+    margin-bottom: 4px;
+  }
+
+  .phaseDescription {
+    max-width: 40em;
+  }
+
+  .phaseBranch:last-child {
+    padding-bottom: 0;
+  }
+
+  .actions {
+    margin-left: 8px;
+    padding-left: 20px;
+  }
+
+  .actionBranch::before,
+  .actionNode::before {
+    left: -20px;
+  }
+
+  .actionNode::before {
+    width: 14px;
+  }
+
+  .actionNode::after {
+    left: -24px;
+  }
+}
+
+@media (max-width: 479px) {
+  .phaseNavigation {
+    display: block;
+  }
+
+  .navigationLabel {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .phaseShortcuts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .phaseShortcuts a {
+    justify-content: center;
+    gap: 6px;
+    padding-inline: 4px;
+  }
+
+  .root {
+    padding: 18px 16px;
+  }
+
+  .rootTitle {
+    font-size: 24px;
+  }
+
+  .rootDescription {
+    font-size: 15px;
+  }
+
+  .rootActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .primaryLink,
+  .secondaryLink {
+    justify-content: space-between;
+    padding-inline: 12px;
+  }
+
+  .phaseHead {
+    padding: 18px 14px;
+  }
+
+  .phaseTitle {
+    font-size: 21px;
+  }
+
+  .cautions {
+    padding-inline: 12px;
+  }
+
+  .resourceBranch {
+    --resource-indent: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tree,
+  .tree * {
+    scroll-behavior: auto;
+    transition: none;
+    animation: none;
+  }
+}

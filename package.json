@@ -1,0 +1,52 @@
+{
+  "name": "hackathon-field-guide",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs dev",
+    "build": "next build",
+    "postbuild": "node scripts/verify-build-tracing.mjs --sanitize",
+    "build:verify": "node scripts/verify-build-tracing.mjs",
+    "start": "node scripts/serve.mjs start",
+    "server:stop": "node --experimental-strip-types scripts/stop-server.mts",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/run-module-tests.mjs",
+    "test:integration": "node --experimental-strip-types --test src/server/*.test.ts",
+    "test:e2e": "playwright test",
+    "db:migrate": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/migrate.mts",
+    "admin:grant": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/grant-role.mts",
+    "admin:test-code": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/issue-admin-test-access.mts",
+    "worker": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/backend-worker.mts",
+    "worker:ai": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/ai-worker.mts",
+    "discovery:once": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/discovery-once.mts",
+    "config:check": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/check-config.mts",
+    "dsh:install": "node --experimental-strip-types scripts/install-dsh.mts",
+    "resources:catalog": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/resource-catalog.mts"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "next": "16.4.0",
+    "nodemailer": "10.0.16",
+    "pg": "^8.23.1",
+    "qrcode-generator": "2.0.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite-tools": "0.4.8",
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^24.0.0",
+    "@types/nodemailer": "8.0.2",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "jsqr": "1.4.0",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

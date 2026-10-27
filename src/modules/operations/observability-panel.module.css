@@ -1,0 +1,26 @@
+.panel { padding: 24px; background: #fffdf7; color: #302820; border: 1px solid #d9d0c6; border-radius: 14px; }
+.heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: start; gap: 16px; }
+.heading h2 { margin: 0; font-size: 1.4rem; }
+.panel p { line-height: 1.6; }
+.panel button { min-height: 44px; padding: 9px 16px; border: 1px solid #b3321d; border-radius: 7px; background: #b3321d; color: var(--surface); font: inherit; cursor: pointer; }
+.panel button:disabled { opacity: .6; cursor: default; }
+.panel button:focus-visible { outline: 2px solid #b3321d; outline-offset: 3px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); gap: 12px; }
+.facts p { margin: 0; padding: 14px; border: 1px solid #ded6cd; border-radius: 8px; }
+.facts strong { display: block; margin-top: 6px; font-size: 1rem; font-weight: 600; }
+.note { color: #635448; font-size: .88rem; }
+.counts { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.counts span { padding: 6px 10px; border-radius: 6px; background: #f4eee5; }
+.runtime { padding: 16px; border: 1px solid #ded6cd; border-radius: 8px; margin: 16px 0; }
+.runtime h3 { margin: 0 0 8px; }
+.error { padding: 10px 14px; border-left: 3px solid #b3321d; background: #ffebe5; color: #882414; }
+.tableWrap { overflow-x: auto; max-width: 100%; }
+.tableWrap table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.tableWrap caption { text-align: left; padding-bottom: 10px; font-weight: 600; }
+.tableWrap td, .tableWrap th { padding: 12px 10px; border-bottom: 1px solid #ded6cd; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.tableWrap th { background: #f4eee5; }
+.tableWrap code, .tableWrap small { display: block; margin-top: 5px; }
+.tableWrap small { color: #635448; }
+.pagination { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.pagination span { font-size: .88rem; color: #635448; }
+@media (max-width: 600px) { .panel { padding: 16px; } .tableWrap table { min-width: 660px; } }

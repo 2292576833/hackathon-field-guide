@@ -1,0 +1,39 @@
+.trigger { min-width: 0; max-width: 100%; }
+.permission { max-width: 28em; margin: 0; color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
+.dialog { box-sizing: border-box; width: min(640px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; padding: 24px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--line); border-radius: 16px; background: var(--space-component-surface); color: var(--ink); box-shadow: 0 16px 64px #21201c38; }
+.dialog::backdrop { background: #21201c70; }
+.dialogHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.dialogHeader h2 { min-width: 0; margin: 0; font-size: 22px; line-height: 1.4; }
+.dialogHeader button { flex: none; }
+.spaceName { margin: 10px 0 18px; color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
+.content { min-width: 0; overflow-wrap: anywhere; }
+.content > p:first-child { margin-top: 0; }
+.content input { box-sizing: border-box; }
+.issued { display: grid; gap: 12px; padding: 18px; margin: 0 0 18px; border: 1px solid #e6c8b8; border-radius: 12px; background: #fff6ef; }
+.issued h3, .issued p { margin: 0; }
+.issued h3 { font-size: 18px; }
+.primary { width: 100%; }
+.quota { min-width: 0; padding: 0; margin: 0; border: 0; }
+.quota legend { margin-bottom: 10px; font-size: 14px; font-weight: 650; }
+.presets { display: flex; gap: 10px; flex-wrap: wrap; }
+.presets button { flex: 1; }
+.presets button[aria-pressed="true"] { background: #faeee8; border-color: var(--action); box-shadow: inset 0 0 0 1px var(--action); }
+.disclosure { min-width: 0; }
+.disclosure > summary { min-height: 44px; box-sizing: border-box; }
+.disclosure[open] > summary { margin-bottom: 6px; }
+.history { margin-top: 22px; padding-top: 10px; border-top: 1px solid var(--line); }
+.history > summary { min-height: 44px; box-sizing: border-box; }
+.history p { margin: 8px 0; }
+.dialog :is(button, input, summary):focus-visible { outline: 3px solid var(--action); outline-offset: 3px; }
+.joined { display: grid; gap: 12px; }
+.joined p { margin: 0; }
+.joinedActions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 480px) {
+  .dialog { width: calc(100% - 24px); max-height: calc(100dvh - 24px); padding: 16px; border-radius: 12px; }
+  .dialogHeader { gap: 8px; }
+  .dialogHeader h2 { font-size: 18px; }
+  .dialogHeader button { padding-inline: 12px; }
+  .issued { padding: 14px; }
+  .content button, .joinedActions > * { max-width: 100%; white-space: normal; }
+  .joinedActions { align-items: stretch; flex-direction: column; }
+}

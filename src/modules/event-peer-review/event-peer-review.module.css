@@ -1,0 +1,33 @@
+/* 数值互评：只使用 globals.css 已有令牌，不新增字面色值。 */
+.panel { display: grid; gap: 16px; padding: clamp(16px, 3vw, 28px); border: 1px solid var(--line); border-radius: 18px; background: var(--space-component-surface); color: var(--ink); }
+.panel h2 { margin: 0; font-size: clamp(1.25rem, 3vw, 1.65rem); }
+.panel h3 { margin: 8px 0 0; font-size: 1.1rem; }
+.head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.badge { display: inline-flex; align-items: center; min-height: 24px; padding: 2px 10px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.8rem; color: var(--muted); }
+.badgeMuted { display: inline-flex; align-items: center; min-height: 24px; padding: 2px 10px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.8rem; color: var(--muted); background: var(--paper); }
+.block { display: grid; gap: 12px; padding: 20px; border: 1px solid var(--control-line); border-radius: 16px; background: var(--space-component-surface); color: var(--ink); }
+.form { display: grid; gap: 10px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.row input, .row select { min-height: 44px; min-width: 96px; padding: 8px 10px; border: 1px solid var(--control-line); border-radius: 10px; background: var(--surface); color: var(--ink); }
+.list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); overflow-wrap: anywhere; }
+.limits { margin: 0; padding-left: 1.2em; color: var(--muted); font-size: 0.93rem; line-height: 1.65; }
+.hint { margin: 0; color: var(--muted); font-size: 0.93rem; line-height: 1.65; max-width: 68ch; }
+.empty { margin: 0; padding: 12px; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); }
+.notice { margin: 0; padding: 10px 12px; border: 1px solid var(--success); border-radius: 10px; background: var(--success-bg); color: var(--ink); }
+.error { margin: 0; padding: 10px 12px; border: 1px solid var(--action); border-radius: 10px; background: var(--tint); color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.primary, .secondary { min-height: 44px; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--action); background: var(--action); color: var(--surface); font-weight: 650; cursor: pointer; }
+.secondary { background: transparent; color: var(--ink); border-color: var(--control-line); }
+.primary:hover:not(:disabled) { background: var(--action-hover); }
+.primary:disabled, .secondary:disabled { opacity: 0.6; cursor: not-allowed; }
+.panel :is(a, button, summary):focus-visible { outline: 3px solid var(--action); outline-offset: 2px; }
+.panel :is(a, button), .panel :is(input, select) { min-height: 44px; }
+@media (max-width: 620px) {
+  .panel, .block { padding: 16px; }
+  .actions { display: grid; grid-template-columns: 1fr; }
+  .actions > * { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .primary, .secondary { transition: none; }
+}

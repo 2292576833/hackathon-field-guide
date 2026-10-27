@@ -1,0 +1,13 @@
+.panel { display: grid; gap: 10px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+.head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.head h2 { margin: 0; font-size: 20px; }
+.switch { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.subhead { margin: 8px 0 0; font-size: 14px; }
+.muted { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.error { margin: 0; color: #b3261e; font-size: 13px; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.card { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: grid; gap: 4px; }
+.headline { margin: 0; font-size: 13px; }
+.meta { margin: 0; color: var(--muted); font-size: 12px; }
+.notice { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+.limits { margin: 0; padding-left: 18px; color: var(--muted); font-size: 12px; }

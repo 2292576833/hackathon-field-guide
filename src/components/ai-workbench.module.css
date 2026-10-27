@@ -1,0 +1,131 @@
+/* Montserrat：与 DeepSeek Harness 同一套品牌字体（SIL OFL，许可证副本在 public/fonts/Montserrat-OFL.txt） */
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/montserrat-light.woff2') format('woff2'); }
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/montserrat-regular.woff2') format('woff2'); }
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/montserrat-medium.woff2') format('woff2'); }
+
+/* 严格对齐 DeepSeek Harness 的视觉：中性色阶 + deepseek 蓝 + 0.5px 边框 + 4/8/12/16/20/28 圆角 */
+.shell {
+  --dsw-bg: #ffffff; --dsw-sidebar: rgb(249,250,251); --dsw-layer: rgb(241,243,245);
+  --dsw-line: rgba(0,0,0,.12); --dsw-line-strong: rgba(0,0,0,.16);
+  --dsw-text: rgb(15,17,21); --dsw-text-2: rgb(97,102,107); --dsw-text-3: rgb(129,133,140);
+  --dsw-accent: #4176e6; --dsw-accent-soft: #edf3fe;
+  --dsw-brand-font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --dsw-r-sm: 8px; --dsw-r-md: 12px; --dsw-r-lg: 16px; --dsw-r-xl: 20px; --dsw-r-panel: 28px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  /* 整页铺满：抵消外层 24/64 的上下内边距，高度扣掉页头 59px，底部不留空白 */
+  margin: 0 0 -64px;
+  display: grid; grid-template-columns: 280px minmax(0, 1fr);
+  height: 560px;
+  border-top: 0; border-bottom: 0; border-radius: 0;
+  border-left: 0.5px solid var(--dsw-line); border-right: 0.5px solid var(--dsw-line); max-width: 100%;
+  overflow: hidden; background: var(--dsw-bg); color: var(--dsw-text);
+}
+.side { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 8px; padding: 10px; background: var(--dsw-sidebar); border-right: 0.5px solid var(--dsw-line); }
+.newSession { width: 100%; min-height: 34px; border-radius: var(--dsw-r-sm); border: 0.5px solid var(--dsw-line-strong); background: var(--dsw-bg); color: var(--dsw-text); font: inherit; font-size: 13px; cursor: pointer; }
+.newSession:hover { border-color: var(--dsw-accent); }
+.sideScroll { overflow: auto; display: grid; gap: 1px; align-content: start; }
+.sideTitle { margin: 12px 0 4px; font-size: 11px; color: var(--dsw-text-3); }
+.entries, .agents { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.entry { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--dsw-r-sm); color: var(--dsw-text); text-decoration: none; font-size: 13px; }
+.entry:hover { background: var(--dsw-layer); }
+.entryGroup { flex: 0 0 26px; font-size: 10px; color: var(--dsw-text-3); }
+.agent { display: flex; align-items: center; gap: 8px; padding: 6px 8px; font-size: 13px; border-radius: var(--dsw-r-sm); color: var(--dsw-text-2); }
+.agentState { margin-left: auto; font-size: 11px; color: var(--dsw-text-3); }
+.dot { width: 7px; height: 7px; border-radius: 999px; background: var(--dsw-line-strong); }
+.sideHint { margin: 6px 0 0; font-size: 11px; color: var(--dsw-text-3); line-height: 1.5; }
+.main { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-width: 0; min-height: 0; background: var(--dsw-bg); overflow: hidden; }
+.topbar { display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-bottom: 0.5px solid var(--dsw-line); }
+.title { font-size: 13px; font-weight: 600; font-family: var(--dsw-brand-font); letter-spacing: .01em; }
+.chip { border: 0.5px solid var(--dsw-line-strong); border-radius: 999px; padding: 1px 8px; font-size: 11px; color: var(--dsw-text-2); }
+.chipMuted { font-size: 11px; color: var(--dsw-text-3); }
+.grow { flex: 1; }
+.thread { min-height: 0; overflow: auto; padding: 20px 18px 8px; display: grid; gap: 14px; align-content: start; }
+.welcome { display: grid; gap: 10px; max-width: 560px; }
+.welcome h2 { margin: 0; font-size: 22px; font-weight: 500; font-family: var(--dsw-brand-font); }
+.examples { display: flex; flex-wrap: wrap; gap: 8px; }
+.example { border: 0.5px solid var(--dsw-line-strong); background: var(--dsw-bg); border-radius: 999px; padding: 6px 12px; cursor: pointer; font: inherit; font-size: 13px; color: var(--dsw-text-2); }
+.example:hover { border-color: var(--dsw-accent); color: var(--dsw-accent); }
+.userRow { display: flex; justify-content: flex-end; }
+.aiRow { display: flex; justify-content: flex-start; }
+.userBubble, .aiBubble { max-width: 76%; padding: 10px 13px; border-radius: var(--dsw-r-md); font-size: 14px; }
+.userBubble { background: var(--dsw-layer); color: var(--dsw-text); }
+.aiBubble { background: transparent; }
+.speaker { display: block; font-size: 11px; color: var(--dsw-text-3); margin-bottom: 4px; }
+.aiBubble p, .userBubble p { margin: 0; white-space: pre-wrap; line-height: 1.7; }
+.thinking { margin: 0; color: var(--dsw-text-3); font-size: 13px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+.link { border: 0.5px solid var(--dsw-line-strong); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: var(--dsw-text-2); text-decoration: none; }
+.link:hover { border-color: var(--dsw-accent); color: var(--dsw-accent); }
+.error { margin: 0; color: #c0392b; font-size: 13px; }
+.composerWrap { padding: 8px 14px 14px; }
+.composer { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: end; gap: 8px; padding: 8px; border: 0.5px solid var(--dsw-line-strong); border-radius: var(--dsw-r-panel); background: var(--dsw-bg); }
+.composer:focus-within { border-color: var(--dsw-accent); }
+.plus { width: 30px; height: 30px; border-radius: 999px; border: 0.5px solid var(--dsw-line-strong); background: var(--dsw-bg); color: var(--dsw-text-2); font-size: 16px; cursor: pointer; }
+.composer textarea { width: 100%; resize: none; border: none; outline: none; background: transparent; color: var(--dsw-text); font: inherit; font-size: 14px; padding: 5px 2px; max-height: 160px; }
+.send { width: 32px; height: 32px; border-radius: 999px; border: none; background: var(--dsw-accent); color: #fff; cursor: pointer; font-size: 15px; }
+.send:disabled { opacity: .4; cursor: not-allowed; }
+.composerMeta { display: flex; align-items: center; gap: 8px; padding: 7px 6px 0; color: var(--dsw-text-3); font-size: 11px; }
+.disclaimer { margin: 0; color: var(--dsw-text-3); font-size: 11px; }
+@media (max-width: 900px) { .shell { grid-template-columns: 1fr; } .side { border-right: none; border-bottom: 0.5px solid var(--dsw-line); } }
+
+.dot[data-on="true"] { background: #22c55e; }
+
+/* @专员 与快捷指令 */
+.toolbar { display: flex; align-items: center; gap: 6px; padding: 0 2px 8px; }
+.chip { border: 0.5px solid var(--dsw-line-strong); border-radius: 999px; padding: 3px 10px; font-size: 12px; background: var(--dsw-bg); color: var(--dsw-text-2); cursor: pointer; }
+.chip:hover { border-color: var(--dsw-accent); color: var(--dsw-accent); }
+.eventSelect { border: 0.5px solid var(--dsw-line-strong); border-radius: 8px; padding: 3px 8px; font-size: 12px; background: var(--dsw-bg); color: var(--dsw-text-2); max-width: 220px; }
+.mentionList { list-style: none; margin: 0 0 8px; padding: 4px; border: 0.5px solid var(--dsw-line-strong); border-radius: var(--dsw-r-md); background: var(--dsw-bg); display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 2px; max-height: 180px; overflow: auto; }
+.mentionList button { display: flex; align-items: center; justify-content: flex-start; gap: 6px; width: 100%; border: none; background: none; padding: 6px 8px; border-radius: var(--dsw-r-sm); cursor: pointer; font: inherit; font-size: 12px; color: var(--dsw-text); text-align: left; }
+.mentionList button:hover { background: var(--dsw-layer); }
+.mentionList span { color: var(--dsw-text-3); font-size: 11px; }
+.quickRow { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 2px 8px; }
+
+/* 专员发言卡（DSH 式） */
+.specialistCard { max-width: 82%; padding: 12px 14px; border: 0.5px solid var(--dsw-line-strong); border-radius: var(--dsw-r-md); background: var(--dsw-bg); display: grid; gap: 6px; }
+.cardHead { display: flex; align-items: center; gap: 6px; }
+.avatarDot { width: 8px; height: 8px; border-radius: 999px; background: var(--dsw-accent); }
+.tag { margin-left: auto; font-size: 10px; color: var(--dsw-text-3); border: 0.5px solid var(--dsw-line-strong); border-radius: 999px; padding: 1px 6px; }
+.cardTitle { margin: 0; font-size: 13px; font-weight: 600; color: var(--dsw-text); }
+.cardItem { margin: 0; font-size: 14px; line-height: 1.65; color: var(--dsw-text); white-space: pre-wrap; }
+.cardDetails { margin-top: 4px; font-size: 11px; color: var(--dsw-text-2); }
+.cardDetails summary { cursor: pointer; color: var(--dsw-text-3); }
+.cardDetails ul { margin: 6px 0 0; padding-left: 16px; display: grid; gap: 2px; }
+
+.mentionList strong { flex: 0 1 auto; font-weight: 500; }
+.mentionList span { margin-left: auto; }
+.chip svg { vertical-align: -3px; margin-right: 4px; }
+
+/* 左下角账号位（DSH 式） */
+.account { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 8px 8px 4px; border-top: 0.5px solid var(--dsw-line); }
+.accountAvatar { width: 24px; height: 24px; border-radius: 999px; background: var(--dsw-accent); color: #fff; display: grid; place-items: center; font-size: 12px; flex: 0 0 auto; }
+.accountName { font-size: 12px; color: var(--dsw-text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.loginLink { font-size: 12px; color: var(--dsw-accent); text-decoration: none; }
+.loginLink:hover { text-decoration: underline; }
+
+.spaceBanner { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-bottom: 0.5px solid var(--dsw-line); font-size: 12px; color: var(--dsw-text-2); }
+.spaceBanner .chip { margin-left: auto; }
+
+/* 框架卡 */
+.charterCard { padding: 10px 14px; border-bottom: 0.5px solid var(--dsw-line); background: var(--dsw-bg); font-size: 12px; }
+.charterRow { display: flex; align-items: center; gap: 8px; }
+.charterRow .chip { margin-left: auto; }
+.charterBody { display: grid; gap: 4px; }
+.charterGoal { margin: 0; font-size: 13px; color: var(--dsw-text); }
+.charterMeta { margin: 0; color: var(--dsw-text-3); }
+.charterForm { display: grid; gap: 6px; }
+.charterForm label { display: grid; gap: 3px; color: var(--dsw-text-2); }
+.charterForm textarea, .charterForm input { font: inherit; font-size: 12px; padding: 6px 8px; border: 0.5px solid var(--dsw-line-strong); border-radius: 8px; background: var(--dsw-bg); color: var(--dsw-text); resize: vertical; }
+
+.spaceNav { display: flex; gap: 10px; flex-wrap: wrap; margin-left: 10px; }
+.spaceNav a { font-size: 12px; color: var(--dsw-accent); text-decoration: none; }
+.spaceNav a:hover { text-decoration: underline; }
+
+/* 专员提醒 */
+.reminders { display: grid; gap: 6px; padding: 0 2px 8px; }
+.reminder { display: flex; align-items: center; gap: 8px; text-align: left; width: 100%; border: 0.5px solid var(--dsw-line-strong); border-left: 3px solid var(--dsw-accent); border-radius: 8px; background: var(--dsw-bg); padding: 8px 10px; cursor: pointer; font: inherit; font-size: 12px; color: var(--dsw-text-2); }
+.reminder strong { color: var(--dsw-text); font-weight: 500; flex: 0 0 auto; }
+.reminderDot { width: 6px; height: 6px; border-radius: 999px; background: var(--dsw-accent); flex: 0 0 auto; }
+.reminderBadge { margin-left: 4px; display: inline-grid; place-items: center; width: 14px; height: 14px; border-radius: 999px; background: var(--dsw-accent); color: #fff; font-size: 10px; }
+
+.unavailable { margin-left: auto; font-size: 10px; color: var(--dsw-text-3); }

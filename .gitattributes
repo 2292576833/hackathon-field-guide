@@ -1,0 +1,3 @@
+# Shell scripts must keep LF endings: the ModelScope Studio image builds on Linux,
+# and a CRLF shebang makes the container entrypoint fail to start.
+*.sh text eol=lf

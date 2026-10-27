@@ -1,0 +1,119 @@
+.root{box-sizing:border-box;width:100%;max-width:100%;min-width:0;color:var(--ink);padding:0 20px 28px}
+.header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 0;background:var(--paper)}
+.identity{min-width:0;flex:1 1 340px}
+.back{display:inline-block;color:var(--action);font-size:13px;text-decoration:none;padding:4px 0;margin-bottom:6px}
+.back:hover{text-decoration:underline}
+.identity h1{margin:0;font-size:clamp(20px,2.5vw,27px);line-height:1.35;overflow-wrap:anywhere}
+.meta{margin:7px 0 0;font-size:13px;color:var(--muted);line-height:1.65;overflow-wrap:anywhere}
+.headerActions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;max-width:100%}
+.muted{margin:0;font-size:12px;color:var(--muted);line-height:1.7;overflow-wrap:anywhere}
+.collaboration{display:grid;gap:18px;min-width:0}
+.workGrid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:18px;align-items:start}
+.workGrid>*{min-width:0}
+.flowSection{min-width:0;padding:0}
+.assistance{padding:10px 0;min-width:0}
+.assistance>summary{cursor:pointer;font-size:14px;font-weight:600;min-height:24px}
+.assistance[open]>summary{margin-bottom:12px}
+.canvasToolbar{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.button,.secondary{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;min-height:36px;padding:7px 11px;background:var(--paper);color:var(--ink);cursor:pointer;overflow-wrap:anywhere}
+.button{background:var(--action);color:var(--surface);border-color:var(--action)}
+.secondary:hover{color:var(--action);border-color:var(--action)}
+.button:disabled,.secondary:disabled{opacity:.5;cursor:default}
+.saveState{font-size:12px;color:var(--muted);line-height:1.6}
+.palette{min-width:0;max-width:100%;flex:1;box-sizing:border-box;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--space-component-surface)}
+.palette>summary{cursor:pointer;font-size:13px;font-weight:600;min-height:28px}
+.paletteList{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:8px;max-width:1100px}
+.paletteList>li{display:flex;align-items:flex-start;flex-wrap:wrap;min-width:0;border:1px solid var(--line);border-radius:6px;padding:4px;box-sizing:border-box}
+.paletteItem{border:0;border-radius:4px;padding:7px;background:transparent;cursor:pointer;text-align:left;font:inherit;min-width:0}
+.paletteItem:hover{border-color:var(--action)}
+.paletteItem:disabled{opacity:.5;cursor:default}
+.paletteItem strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.palettePosition{padding:0;font-size:12px;min-width:0}
+.palettePosition>summary{cursor:pointer;min-height:30px;min-width:30px;padding:5px;list-style:none;color:var(--action)}
+.palettePosition>summary::-webkit-details-marker{display:none}
+.palettePosition[open]{flex-basis:100%}
+.palettePosition .menuBody{position:static;box-sizing:border-box;width:100%;margin-top:6px;box-shadow:none}
+.hint{border:0;background:transparent;padding:6px;font-size:12px;color:var(--muted);cursor:pointer}
+.canvasViewport{width:100%;max-width:100%;min-width:0;overflow:auto;overscroll-behavior-x:contain}
+.canvas{position:relative;max-width:none;min-height:1600px;background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px}
+.card{position:absolute;left:0;top:0;display:flex;flex-direction:column;box-sizing:border-box;padding:16px 16px 26px;border:0;background:transparent;min-width:0;overflow:visible;cursor:grab}
+.card,.card:focus,.card:focus-visible,.canvasViewport,.canvasViewport:focus,.canvasViewport:focus-visible,.canvas,.canvas:focus,.canvas:focus-visible{outline:none}
+.card[data-selected="true"]::before{content:"";position:absolute;left:5px;top:5px;width:6px;height:6px;border-radius:50%;background:var(--action);pointer-events:none}
+.marquee{position:absolute;z-index:15;box-sizing:border-box;min-width:2px;min-height:2px;border:2px dashed var(--action);background:rgba(220,91,48,.09);pointer-events:none}
+.canvas[data-selecting="true"]{user-select:none;cursor:crosshair}
+.card[data-dragging="true"]{z-index:5;user-select:none;cursor:grabbing}
+.card[data-dragging="true"] *{user-select:none}
+.gestureHint{position:absolute;left:16px;bottom:5px;max-width:calc(100% - 32px);font-size:11px;line-height:16px;color:var(--muted);pointer-events:none;user-select:none;opacity:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card:hover>.gestureHint,.card:focus-within>.gestureHint,.card[data-dragging="true"]>.gestureHint{opacity:1}
+/* 批注层（用户要求：右击栏含画笔与橡皮）。与组件同一坐标系，缩放画布时笔迹始终对齐。
+   **始终 pointer-events:none**：让指针事件统一由画布面处理（批注模式的手势冲突由 canvas 上的守卫拦截），
+   否则开启批注时这一层会抢走橡皮/画笔的指针事件。 */
+.annotationLayer{position:absolute;left:0;top:0;z-index:14;pointer-events:none;overflow:visible}
+.canvas[data-annotating="true"]{cursor:crosshair}
+.annotationNote{font-size:12px;line-height:1.4;color:var(--ink);overflow:hidden;overflow-wrap:anywhere;height:100%}
+.noteEditor{position:absolute;z-index:30;display:flex;gap:4px;align-items:center;padding:6px;border:1px solid var(--action);border-radius:8px;background:var(--surface);box-shadow:0 6px 18px rgba(0,0,0,.14)}
+.noteEditor input{width:150px;font-size:12px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.noteEditor button{font-size:12px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--space-component-surface);color:var(--action);cursor:pointer}
+/* 右击快捷栏：空白处给画布与批注工具，组件上另加该组件的操作。 */
+.contextMenu{position:fixed;z-index:60;width:236px;max-height:80vh;overflow:auto;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:0 14px 34px rgba(0,0,0,.2)}
+.contextMenu hr{margin:8px 0;border:0;border-top:1px solid var(--line)}
+.contextTitle{margin:0 0 6px;font-size:12px;font-weight:650;color:var(--ink)}
+.contextGroup{margin:6px 0 4px;font-size:11px;color:var(--muted)}
+.contextGrid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.contextItem{min-height:30px;padding:5px 8px;font-size:12px;text-align:left;border:1px solid var(--line);border-radius:7px;background:var(--space-component-surface);color:var(--ink);cursor:pointer}
+.contextItem:hover:not(:disabled){border-color:var(--action);color:var(--action)}
+.contextItem[aria-pressed="true"]{border-color:var(--action);background:var(--tint);color:var(--action);font-weight:650}
+.contextItem:disabled{opacity:.45;cursor:default}
+/* 批注进行中的浮动工具条：随时换工具或退出，不必再右击。 */
+.annotationBar{position:sticky;bottom:12px;z-index:55;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0 0;padding:8px 10px;border:1px solid var(--action);border-radius:999px;background:var(--surface);box-shadow:0 8px 22px rgba(0,0,0,.16);width:max-content;max-width:100%}
+.annotationBarHint{font-size:12px;color:var(--muted);margin-right:4px}
+.annotationBar button{min-height:30px;padding:4px 10px;font-size:12px;border:1px solid var(--line);border-radius:999px;background:var(--space-component-surface);color:var(--ink);cursor:pointer}
+.annotationBar button[aria-pressed="true"]{border-color:var(--action);background:var(--tint);color:var(--action);font-weight:650}
+.annotationBar button:disabled{opacity:.45;cursor:default}
+/* 「取消批注」是破坏性动作（清掉本次批注），用中性边框把它与「完成」区分开。 */
+.annotationBar .annotationCancel{border-color:var(--warning);color:var(--warning)}
+.card[data-dragging="true"]>.gestureHint{color:var(--action)}
+.pathCard{max-width:none}
+.pathCard .cardBody{width:max-content}
+.pathCard .cardBody>section{max-width:none}
+.cardHead{position:absolute;right:0;top:-24px;z-index:8;display:flex;align-items:center;gap:5px;min-height:24px}
+.card[data-collapsed="true"] .cardHead{position:relative;top:0;justify-content:flex-end}
+.card[data-collapsed="true"]:not([data-component-kind="documents"]):not(.pathCard) .cardHead{background:var(--space-component-surface);border-radius:8px;padding:8px 12px}
+.cardTitle{flex:1;font-size:13px;font-weight:600;min-width:0;overflow-wrap:anywhere}
+.textButton{border:0;background:transparent;color:var(--action);font:inherit;font-size:12px;cursor:pointer;min-height:30px;padding:4px}
+.textButton:disabled{opacity:.5;cursor:default}
+.cardBody{min-width:0;padding:0;overflow-wrap:anywhere;cursor:auto}
+.cardBody>section{max-width:100%;box-shadow:none}
+.cardMenu{position:relative}
+.cardMenu>summary{font-size:12px;color:var(--action);cursor:pointer;min-height:30px;padding:5px 2px;list-style:none}
+.cardMenu>summary::-webkit-details-marker{display:none}
+.menuBody{box-sizing:border-box;position:absolute;z-index:12;right:0;top:calc(100% + 6px);width:min(290px,82vw);max-height:60vh;overflow:auto;display:grid;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.assistantNote{padding:12px;line-height:1.75;background:var(--space-component-surface);border-radius:8px}
+.openerOnly{height:0;width:0;overflow:visible}
+.openerOnly>section{width:0!important;max-width:0!important;height:0;min-height:0;overflow:visible}
+.openerOnly>section>:not(dialog){display:none}
+.notice{margin:10px 0;color:var(--action);font-size:13px;line-height:1.7}
+.error{margin:10px 0;padding:12px;border:1px solid #dca59b;border-radius:10px;background:#fff7f4;color:#9e3428;font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.error p{margin:0 0 8px}
+.empty{margin:0;padding:36px 24px;color:var(--muted);font-size:14px;line-height:1.8}
+.root button:focus-visible,.root summary:focus-visible,.root a:focus-visible{outline:3px solid var(--action);outline-offset:3px}
+@media(max-width:1000px){.workGrid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){
+  .root{padding:0 12px 28px}
+  .header{gap:8px;padding:10px 0}
+  .identity{flex-basis:100%}
+  .headerActions{gap:8px;width:100%}
+  .headerActions>button{flex:1 1 auto}
+  .flowSection{padding:0}
+  .canvasToolbar{padding:0}
+  .canvasViewport{overflow:visible;border:0}
+  .canvas{display:grid;gap:24px;min-height:0!important;width:100%!important;background:none}
+  .canvas .card{position:relative;width:100%!important;transform:none!important;max-width:100%;box-shadow:none;min-width:0}
+  .gestureHint{opacity:1}
+  .cardBody{padding:0;min-height:0!important;width:100%!important}
+  .pathCard .cardBody>section{max-width:100%}
+  .cardHead{position:relative;top:0;align-self:flex-end}
+  .button,.secondary{min-height:40px}
+}
+@media(prefers-reduced-motion:reduce){.root *{scroll-behavior:auto}}

@@ -1,0 +1,91 @@
+.wrap { container-type: inline-size; display: block; max-width: 1120px; margin: 0 auto; padding: 24px 20px 56px; color: var(--ink); }
+.desktop { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+.span3 { grid-column: span 3; min-width: 0; }
+.span4 { grid-column: span 4; min-width: 0; }
+.span6 { grid-column: span 6; min-width: 0; }
+.span8 { grid-column: span 8; min-width: 0; }
+.span12 { grid-column: span 12; min-width: 0; }
+.mobile { display: none; flex-direction: column; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; min-width: 0; }
+.heading { margin: 0 0 8px; font-size: 18px; line-height: 1.35; }
+.text { margin: 0; color: var(--ink); line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 13px; margin: 6px 0 0; }
+.items { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.itemsGrid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+.item { border: 1px solid var(--line); border-radius: 12px; padding: 12px; min-width: 0; }
+.itemHeading { margin: 0 0 6px; font-size: 15px; }
+.media { display: block; width: 100%; height: auto; border-radius: 12px; background: var(--tint); }
+.aspect169 { aspect-ratio: 16 / 9; object-fit: cover; }
+.aspect43 { aspect-ratio: 4 / 3; object-fit: cover; }
+.aspect11 { aspect-ratio: 1 / 1; object-fit: cover; }
+.aspect34 { aspect-ratio: 3 / 4; object-fit: cover; }
+.action { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 10px; background: var(--action); color: var(--paper); text-decoration: none; font-weight: 600; }
+.action:hover { background: var(--action-hover); }
+.actionInline { min-height: 36px; padding: 0 12px; font-size: 14px; }
+.actionBanner { width: 100%; min-height: 52px; }
+.collapse { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; background: var(--surface); }
+.collapse > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 600; }
+.footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+.footerLink { color: var(--muted); }
+@container (max-width: 760px) {
+  .wrap { padding: 16px 14px 40px; }
+  .desktop { display: none; }
+  .mobile { display: flex; }
+}
+.siteHeader { display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; margin: 0 0 18px; color: var(--muted); font-size: 14px; }
+.siteHeader strong { color: var(--ink); font-size: 18px; }
+
+/* 编辑器预览：强制显示某一棵树（宽屏也看得到手机版，反之亦然）。 */
+.forceDesktop .mobile { display: none !important; }
+.forceDesktop .desktop { display: grid !important; }
+.forceMobile .desktop { display: none !important; }
+.forceMobile .mobile { display: flex !important; }
+
+/* ------------------------------------------------------------------
+ * 视觉皮肤：不是「换个颜色」，而是四套**不同的版面语言**——
+ * 标题字号与字形、按钮形状、条目分隔、底色纹理都不同。
+ * 只覆盖既有令牌 + 结构规则，不引入任何自定义颜色输入（规划 35 §17）。
+ * ------------------------------------------------------------------ */
+
+/* ① 暖白（平台默认） */
+.skin-classic { --paper: #ffffff; --ink: #21201c; --muted: #666257; --brand: #ef4d2e; --line: #e8e2d8; }
+
+/* ② 暗色海报：超大标题、全大写标签、方角按钮、条目下划线 */
+.skin-dark {
+  --paper: #0b0d10; --ink: #f4f6f8; --muted: #8a94a2; --brand: #ff3b30; --line: #1c222a;
+  background-image: linear-gradient(180deg, #0e1116 0%, #0b0d10 60%);
+}
+.skin-dark .siteHeader { border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.skin-dark .siteHeader strong { font-size: 40px; line-height: 1.04; letter-spacing: -.03em; font-weight: 800; }
+.skin-dark .heading { font-size: 13px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); }
+.skin-dark .itemHeading { font-size: 20px; letter-spacing: -.01em; }
+.skin-dark .item { border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.skin-dark .action, .skin-dark .actionBanner { border-radius: 0; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
+
+/* ③ 学术出版：衬线标题、双线报头、描边按钮、无圆角 */
+.skin-paper {
+  --paper: #fbf8f1; --ink: #1f1c17; --muted: #6b6355; --brand: #7a4a1d; --line: #ded6c5;
+  background-image: linear-gradient(180deg, #fdfaf3 0%, #f7f2e7 100%);
+}
+.skin-paper .siteHeader { border-bottom: 3px double var(--ink); padding-bottom: 10px; }
+.skin-paper .siteHeader strong { font-family: Georgia, "Songti SC", "Times New Roman", serif; font-size: 27px; font-weight: 600; }
+.skin-paper .heading, .skin-paper .itemHeading { font-family: Georgia, "Songti SC", "Times New Roman", serif; }
+.skin-paper .heading { text-transform: uppercase; letter-spacing: .1em; font-size: 13px; }
+.skin-paper .item { border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.skin-paper .action, .skin-paper .actionBanner { border-radius: 0; background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+
+/* ④ 霓虹：胶囊按钮、发光边框、卡片化条目、大留白 */
+.skin-neon {
+  --paper: #0d0716; --ink: #f3ecff; --muted: #a89ac4; --brand: #b388ff; --line: #2a1b45;
+  background-image: radial-gradient(120% 80% at 15% 0%, #241041 0%, #0d0716 55%);
+}
+.skin-neon .siteHeader strong { font-size: 34px; letter-spacing: -.02em; }
+.skin-neon .heading { text-transform: uppercase; letter-spacing: .18em; font-size: 12px; color: var(--muted); }
+.skin-neon .item { border: 1px solid rgba(179, 136, 255, .28); border-radius: 16px; padding: 12px; background: rgba(179, 136, 255, .06); }
+.skin-neon .action, .skin-neon .actionBanner { border-radius: 999px; box-shadow: 0 0 0 1px rgba(179, 136, 255, .4), 0 12px 34px rgba(155, 107, 255, .32); }
+.skin-neon .collapse { border: 1px solid rgba(179, 136, 255, .28); border-radius: 14px; }
+
+/* 页脚在四套皮肤里都保持安静：归属行是平台要求，但不抢版面 */
+.skin-dark .footer, .skin-neon .footer { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 12px; }
+.skin-paper .footer { border-top: 1px solid var(--ink); margin-top: 22px; padding-top: 10px; }
+.skin-classic .footer { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 12px; }

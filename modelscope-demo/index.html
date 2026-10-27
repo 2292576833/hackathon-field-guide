@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>草根黑客松情报局 · 产品演示</title>
+<meta name="description" content="草根黑客松情报局产品演示页：赛事情报证据链、参赛路线图、设计灵感库、赛道技能包与团队协作。静态演示，数据取自项目内已保存的真实产物。" />
+<style>
+  :root{
+    --paper:#F6F3EB; --card:#FFFDF8; --ink:#21201C; --muted:#666257;
+    --brand:#EF4D2E; --action:#B8351E; --action-hover:#9C2A17;
+    --tint:#FBE9E2; --line:#D9D4C8; --control-line:#7D776C;
+    --success:#2C6647; --success-bg:#ECF3EB;
+    --warning:#845311; --warning-bg:#FFF1D6;
+    --sans:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    --mono:ui-monospace,"Cascadia Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.65;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:var(--action);text-decoration:none;border-bottom:1px solid rgba(184,53,30,.35)}
+  a:hover{color:var(--action-hover);border-bottom-color:var(--action-hover)}
+  code{font-family:var(--mono);font-size:.88em;background:#EFEBE1;border:1px solid var(--line);
+    border-radius:3px;padding:1px 5px;color:#4A463D;white-space:nowrap}
+
+  /* ── 顶部提示条：演示页边界必须最先说明 ───────────────── */
+  .notice{
+    background:var(--warning-bg);color:var(--warning);border-bottom:1px solid #E8D5AC;
+    font-size:13.5px;padding:9px 0;
+  }
+  .notice .wrap{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .notice b{font-weight:700}
+
+  /* ── 标识 ─────────────────────────────────────────── */
+  header.top{border-bottom:1px solid var(--line);background:var(--paper)}
+  .brandbar{display:flex;align-items:center;gap:12px;padding:18px 0}
+  .tagmark{width:26px;height:26px;flex:none}
+  .brandname{font-weight:700;letter-spacing:.01em;font-size:16px}
+  .branden{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+
+  /* ── 首屏 ─────────────────────────────────────────── */
+  .hero{padding:64px 0 48px;border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--brand);margin-bottom:22px}
+  h1{font-size:clamp(34px,6.4vw,68px);line-height:1.12;letter-spacing:-.015em;margin:0 0 20px;font-weight:800}
+  h1 em{font-style:normal;color:var(--brand)}
+  .lede{font-size:clamp(16px,2.1vw,20px);color:#3C3931;max-width:44em;margin:0 0 32px}
+  .statrow{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px}
+  .stat{padding-right:40px;margin-right:40px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:0;margin-right:0;padding-right:0}
+  .stat b{display:block;font-size:28px;line-height:1.1;font-weight:800;font-variant-numeric:tabular-nums}
+  .stat span{font-size:13px;color:var(--muted)}
+
+  /* ── 章节 ─────────────────────────────────────────── */
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:12px}
+  .sec-num{font-family:var(--mono);font-size:13px;color:var(--brand);font-weight:700;letter-spacing:.08em;flex:none}
+  h2{font-size:clamp(22px,3.1vw,28px);line-height:1.35;margin:0;font-weight:700;letter-spacing:-.01em}
+  .sec-sub{color:var(--muted);max-width:46em;margin:0 0 34px}
+  h3{font-size:18px;margin:34px 0 14px;font-weight:700}
+
+  .cols{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:20px 22px}
+  .box h4{margin:0 0 8px;font-size:16px}
+  .box p{margin:0;font-size:14.5px;color:#4A463D}
+  .box .mono{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+  /* ── 证据链收据 ───────────────────────────────────── */
+  .receipt{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .receipt-head{padding:18px 22px;border-bottom:1px solid var(--line);background:#FCFAF4;
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline}
+  .receipt-head .t{font-weight:700}
+  .receipt-head .m{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .kv{display:grid;grid-template-columns:150px 1fr;gap:0;font-size:14px}
+  .kv div{padding:11px 22px;border-bottom:1px solid #EFEBE1}
+  .kv div:nth-child(odd){color:var(--muted);background:#FCFAF4}
+  .kv div:nth-child(even){font-family:var(--mono);font-size:13px;word-break:break-all}
+  .srclist{list-style:none;margin:0;padding:6px 22px 18px}
+  .srclist li{padding:11px 0;border-bottom:1px dashed #E7E2D6;font-size:14.5px}
+  .srclist li:last-child{border-bottom:0}
+  .srclist .idx{font-family:var(--mono);font-size:12px;color:var(--brand);margin-right:10px}
+  .srclist .u{display:block;font-family:var(--mono);font-size:11.5px;color:var(--muted);
+    word-break:break-all;margin-top:3px}
+  .limits{background:var(--warning-bg);border-top:1px solid #E8D5AC;padding:16px 22px}
+  .limits .t{font-weight:700;color:var(--warning);font-size:13.5px;margin-bottom:6px}
+  .limits ul{margin:0;padding-left:20px;color:#6B4A16;font-size:13.5px}
+  .limits li{margin:3px 0}
+
+  /* ── 路线图 ───────────────────────────────────────── */
+  .phase{border-left:2px solid var(--brand);padding:2px 0 2px 22px;margin-bottom:30px}
+  .phase .ph-h{display:flex;gap:12px;align-items:baseline;margin-bottom:6px;flex-wrap:wrap}
+  .phase .ph-id{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--brand);border:1px solid var(--brand);border-radius:999px;padding:1px 9px}
+  .phase .ph-t{font-weight:700;font-size:17px}
+  .phase .ph-d{color:var(--muted);font-size:14.5px;margin:0 0 14px}
+  .nodes{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .node{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+  .node .n-t{font-weight:700;font-size:15px;margin-bottom:5px}
+  .node .n-d{font-size:13.5px;color:#4A463D;margin:0 0 9px}
+  .node .n-a{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .caution{background:var(--tint);border:1px solid #F0D2C7;border-radius:6px;padding:14px 18px;
+    font-size:13.5px;color:#7A3320;margin:0 0 18px}
+  .caution b{display:block;margin-bottom:5px}
+  .caution ul{margin:0;padding-left:19px}
+
+  /* ── 灵感库 / 技能 ─────────────────────────────────── */
+  .cat{margin-bottom:26px}
+  .cat-h{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;
+    border-bottom:1px solid var(--line);padding-bottom:7px}
+  .cat-h .c-n{font-weight:700;font-size:15.5px}
+  .cat-h .c-c{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+  .cards{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .icard{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:13px 15px}
+  .icard .i-n{font-weight:700;font-size:14.5px;margin-bottom:4px}
+  .icard .i-u{font-family:var(--mono);font-size:11px;word-break:break-all;margin-bottom:7px}
+  .icard .i-t{font-size:12.5px;color:var(--muted)}
+  .pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+  .pill{font-size:11px;color:#6B665C;background:#EFEBE1;border-radius:3px;padding:1px 6px}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid #EFEBE1;vertical-align:top}
+  th{background:#FCFAF4;font-size:12.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  .ok{color:var(--success);font-weight:700}
+  .pend{color:var(--warning);font-weight:700}
+
+  footer{padding:44px 0 64px;color:var(--muted);font-size:13.5px}
+  footer .fbox{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:20px 22px}
+  footer b{color:var(--ink)}
+  @media (max-width:640px){
+    .stat{padding-right:24px;margin-right:24px}
+    .kv{grid-template-columns:1fr}
+    .kv div:nth-child(odd){border-bottom:0;padding-bottom:2px}
+    .kv div:nth-child(even){padding-top:2px}
+    .hero{padding:44px 0 36px}
+    section{padding:46px 0}
+  }
+</style>
+</head>
+<body>
+
+<div class="notice"><div class="wrap">
+  <b>静态演示页</b>
+  <span>不含登录、AI 调用与数据库。所有内容取自本项目中已保存的真实产物，未读取全文的来源保持「未核验线索」标注。</span>
+</div></div>
+
+<header class="top"><div class="wrap brandbar">
+  <svg class="tagmark" viewBox="0 0 26 26" aria-hidden="true">
+    <rect x="1" y="1" width="24" height="24" rx="3" fill="none" stroke="#D9D4C8"/>
+    <rect x="5" y="7" width="16" height="5" rx="1" fill="#EF4D2E"/>
+    <rect x="5" y="15" width="10" height="2.5" rx="1" fill="#21201C"/>
+  </svg>
+  <span class="brandname">草根黑客松情报局</span>
+  <span class="branden">Hackathon Field Guide</span>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div class="kicker">产品演示 · Product Demo</div>
+  <h1>从第一次参赛，<br />到第一次<em>交付</em>。</h1>
+  <p class="lede">看懂比赛、找到工具、分好任务，把想法一步步做出来。本站把「找比赛 → 组队 → 排任务 → 做作品 → 正式提交 → 复盘」整理成一条能走完的路径，并且对每一项结论都留下可核对的依据。</p>
+  <div class="statrow">
+    <div class="stat"><b>10</b><span>功能模块</span></div>
+    <div class="stat"><b>3</b><span>参赛阶段</span></div>
+    <div class="stat"><b>15</b><span>路线图行动节点</span></div>
+    <div class="stat"><b>21</b><span>已核查灵感官网</span></div>
+    <div class="stat"><b>68</b><span>数据库迁移版本</span></div>
+  </div>
+</div></div>
+
+<!-- ── 01 ─────────────────────────────────────────── -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>赛事情报：每张卡片都能追溯到原文</h2></div>
+  <p class="sec-sub">自动发现出来的比赛永远是「未核验线索」。下面这张收据是系统实际保存的一次运行记录，包含查询词、使用的模型、token 用量、全部来源，以及这次运行承认的局限。</p>
+
+  <div class="receipt">
+    <div class="receipt-head">
+      <span class="t">DSH 原生搜索运行回执</span>
+      <span class="m">prompt field-dsh-native-search-v1</span>
+    </div>
+    <div class="kv">
+      <div>查询词</div><div>2026 黑客松 黑客马拉松 比赛 报名 中国 微信公众号 小红书</div>
+      <div>模型</div><div>deepseek-v4-flash</div>
+      <div>token 用量</div><div>输入 5,275 / 输出 688</div>
+      <div>网络请求</div><div>1 次</div>
+      <div>来源数量</div><div>5</div>
+      <div>结果是否截断</div><div>truncated: true</div>
+    </div>
+    <ol class="srclist">
+      <li><span class="idx">01</span>小红书“黑客松巅峰赛”来袭，50万奖金等你拿！<span class="u">https://www.sohu.com/a/999041445_114760</span></li>
+      <li><span class="idx">02</span>小红书“黑客松巅峰赛”启动报名：4 月 7 日-10 日上海线下决赛，总奖金池 50 万元<span class="u">https://news.17173.com/content/03202026/180211585.shtml</span></li>
+      <li><span class="idx">03</span>小红书黑客松巅峰赛启动报名，4月7日上海线下决赛<span class="u">https://k.sina.cn/article_1826017320_6cd6d02804001k39s.html</span></li>
+      <li><span class="idx">04</span>小红书黑客松巅峰赛报名开启4月7-10日上海决赛奖金50万元<span class="u">https://www.itren.com/news/170473.html</span></li>
+      <li><span class="idx">05</span>黑客松巅峰赛（百科条目）<span class="u">https://baike.baidu.com/item/黑客松巅峰赛/67527316</span></li>
+    </ol>
+    <div class="limits">
+      <div class="t">这次运行自己写下的局限（原样保留）</div>
+      <ul>
+        <li>5 条来源都没有取到引用摘录，也没有发布时间。</li>
+        <li>来源仍是未核验线索，不能据此认定报名窗口开放。</li>
+        <li>这次运行不能证明已经直接索引微信公众号或小红书站内内容。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:22px">
+    <div class="box"><h4>为什么把局限一起展示</h4><p>情报产品最贵的成本是「看起来很有把握的错误结论」。宁可让用户看到 5 条待核对线索，也不给一个编造出来的报名截止日期。</p></div>
+    <div class="box"><h4>证据不足时的降级路径</h4><p>拿不到全文时，只允许使用真实的引用摘录，并把卡片标成「搜索引用 · 未读取全文」；完全没有候选链接时，保留原文入口而不是自己拼一个。</p></div>
+    <div class="box"><h4>报名建议只给条件判断</h4><p>输出只有「可考虑 / 需谨慎 / 信息不足」三种，不保证资格，也不给能力或匹配百分比。</p></div>
+  </div>
+</div></section>
+
+<!-- ── 02 ─────────────────────────────────────────── -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>参赛路线图：从找比赛到留下经验</h2></div>
+  <p class="sec-sub">本站原创指南，三个阶段的 15 个行动节点。点击不代表完成，主办方要求永远优先——路线图只负责让你知道下一步该做什么、以及需要哪份资料。</p>
+
+  <div class="phase">
+    <div class="ph-h"><span class="ph-id">before</span><span class="ph-t">赛前：选比赛，定目标，做好准备</span></div>
+    <p class="ph-d">从适合的比赛开始，把规则、最小作品、人员和可用时间说清楚，再安排能交付的任务。</p>
+    <div class="nodes">
+      <div class="node"><div class="n-t">找比赛，核对规则与报名</div><p class="n-d">核对资格、费用、时间与必交材料；保存分析或创建空间都不等于已报名。</p><div class="n-a">→ 去找比赛并查看原文</div></div>
+      <div class="node"><div class="n-t">定一个最小能演示的作品</div><p class="n-d">写清一个使用者、一个问题和一条核心流程，把必需功能与可选功能分开。</p><div class="n-a">→ 创建或打开团队空间</div></div>
+      <div class="node"><div class="n-t">安排个人备赛与出行</div><p class="n-d">补充经验、城市和可投入时间；个人计划是待核对草案，分享前由本人选择内容。</p><div class="n-a">→ 打开个人参赛准备</div></div>
+      <div class="node"><div class="n-t">试通开发环境与版本保存</div><p class="n-d">用小练习确认项目能启动、能保存与恢复版本，并准备网络或设备故障时的替代演示。</p><div class="n-a">→ 学习 GitHub 与版本保存</div></div>
+      <div class="node"><div class="n-t">邀请队友，填时间，选择职责</div><p class="n-d">按所需人数创建邀请链接或本地二维码；AI 建议不自动成为正式分工。</p><div class="n-a">→ 进入空间安排成员与分工</div></div>
+      <div class="node"><div class="n-t">排任务、交接条件与提交缓冲</div><p class="n-d">确认负责人、成果、验收条件、预计用时与前置交接，给集成和提交留缓冲。</p><div class="n-a">→ 进入空间确认任务与时间</div></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph-h"><span class="ph-id">during</span><span class="ph-t">赛中：做出作品，检查协作，展示提交</span></div>
+    <p class="ph-d">先做通核心流程，再持续集成和检查；展示材料围绕实际成果制作，按主办方要求完成正式提交。</p>
+    <div class="nodes">
+      <div class="node"><div class="n-t">做通一个核心 Demo</div><p class="n-d">先完成能从头演示的最小流程，给每次交接附成果与启动方法。</p><div class="n-a">→ 进入空间推进核心任务</div></div>
+      <div class="node"><div class="n-t">准备 UI、素材与视觉参考</div><p class="n-d">先画草图，再整理配色与素材；不把漂亮截图当作可运行作品。</p><div class="n-a">→ 按当前界面任务找灵感</div></div>
+      <div class="node"><div class="n-t">集成、测试，记录实际运行结果</div><p class="n-d">从头跑一次，检查登录、网络、空数据和主要失败路径；版本保存成功不能替代运行通过。</p><div class="n-a">→ 进入空间检查作品运行</div></div>
+      <div class="node"><div class="n-t">写讲稿、做 PPT，练习路演</div><p class="n-d">用问题、使用者、实际成果和演示流程组织讲稿，按比赛时长练习。</p><div class="n-a">→ 准备讲稿与路演练习</div></div>
+      <div class="node"><div class="n-t">按要求准备演示视频</div><p class="n-d">先核对是否要求视频及格式、时长；成片必须基于可演示成果录制。</p><div class="n-a">→ 查看录制与演示工具</div></div>
+      <div class="node"><div class="n-t">保存代码，向主办方正式提交</div><p class="n-d">核对仓库、分支和差异并保存版本，再按主办方原文进入正式提交入口。</p><div class="n-a">→ 进入空间核对保存与提交记录</div></div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph-h"><span class="ph-id">after</span><span class="ph-t">赛后：复盘，保留成果，用于下一次</span></div>
+    <p class="ph-d">把这次的协作、技术和时间经验整理成可核对记录，保留成果，再挑选适合下次参赛的部分。</p>
+    <div class="nodes">
+      <div class="node"><div class="n-t">复盘合作、技术与时间问题</div><p class="n-d">对照实际任务和交付记录，写清做对了什么、卡在哪里、下次怎么改。</p><div class="n-a">→ 进入本次空间写复盘</div></div>
+      <div class="node"><div class="n-t">保存成果，按需归档空间</div><p class="n-d">整理仓库版本、演示说明与提交凭证，检查链接能否继续访问。</p><div class="n-a">→ 打开空间整理成果与历史</div></div>
+      <div class="node"><div class="n-t">挑选经验和资源，准备下一次</div><p class="n-d">从已确认经验里挑选复用项，但旧分工、截止与授权不自动适用。</p><div class="n-a">→ 选择下一次参赛空间</div></div>
+    </div>
+  </div>
+
+  <div class="caution">
+    <b>路线图自带的核对提醒</b>
+    <ul>
+      <li>资格、人数、费用、报名状态、官方赛道、评分重点与 AI 使用规则，都要回到主办方原文核对。</li>
+      <li>报名截止、开赛时间和作品提交截止要分别记录并保留时区——作品提交截止不能代替报名截止。</li>
+      <li>赛前已有的代码、素材和预做作品是否可用，按比赛规则确认。</li>
+      <li>设计参考不等于获得图片、品牌或代码许可，使用素材前另行核对来源与署名。</li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- ── 03 ─────────────────────────────────────────── -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03</span><h2>设计灵感库：21 个已核查官网</h2></div>
+  <p class="sec-sub">不是链接收集站。每个条目都记录了官方用途、适用时机和使用边界（是否提供源码、是否需要账号、素材授权要另行确认）。卡片的说明必须来自实际抓取并经过校验的官网文本，未分析的条目只显示名称、链接和等待状态。</p>
+
+  <div class="cat">
+    <div class="cat-h"><span class="c-n">视觉参考</span><span class="c-c">4 个 · reference</span></div>
+    <div class="cards">
+      <div class="icard"><div class="i-n">Dribbble</div><div class="i-u"><a href="https://dribbble.com/">dribbble.com</a></div><div class="i-t">方向不清楚时，用少量作品对齐团队想要的视觉感觉。</div><div class="pills"><span class="pill">UI</span><span class="pill">配色</span><span class="pill">排版</span></div></div>
+      <div class="icard"><div class="i-n">Behance</div><div class="i-u"><a href="https://www.behance.net/">behance.net</a></div><div class="i-t">准备视觉方案或答辩展示时，参考项目叙述与视觉一致性。</div><div class="pills"><span class="pill">品牌</span><span class="pill">作品集</span><span class="pill">答辩</span></div></div>
+      <div class="icard"><div class="i-n">Mobbin</div><div class="i-u"><a href="https://mobbin.com/">mobbin.com</a></div><div class="i-t">要让作品更容易使用时，先比较同类产品的完整操作路径。</div><div class="pills"><span class="pill">移动端</span><span class="pill">用户流程</span></div></div>
+      <div class="icard"><div class="i-n">Siteinspire</div><div class="i-u"><a href="https://www.siteinspire.com/">siteinspire.com</a></div><div class="i-t">决定整体设计方向时，挑两个风格接近的站点比较。</div><div class="pills"><span class="pill">网站设计</span><span class="pill">版式</span></div></div>
+    </div>
+  </div>
+
+  <div class="cat">
+    <div class="cat-h"><span class="c-n">整站案例</span><span class="c-c">4 个 · reference</span></div>
+    <div class="cards">
+      <div class="icard"><div class="i-n">Awwwards</div><div class="i-u"><a href="https://www.awwwards.com/">awwwards.com</a></div><div class="i-t">做展示网站或打磨首屏时，拆解一个有用的设计细节。</div><div class="pills"><span class="pill">首屏</span><span class="pill">交互</span></div></div>
+      <div class="icard"><div class="i-n">Httpster</div><div class="i-u"><a href="https://httpster.net/">httpster.net</a></div><div class="i-t">需要克制、清楚的网页排版时，比较内容密度与留白。</div><div class="pills"><span class="pill">极简</span><span class="pill">网格</span></div></div>
+      <div class="icard"><div class="i-n">Lapa Ninja</div><div class="i-u"><a href="https://www.lapa.ninja/">lapa.ninja</a></div><div class="i-t">需要快速解释作品价值时，参考首屏与行动入口。</div><div class="pills"><span class="pill">落地页</span><span class="pill">颜色</span></div></div>
+      <div class="icard"><div class="i-n">Landbook</div><div class="i-u"><a href="https://land-book.com/">land-book.com</a></div><div class="i-t">有了功能但展示平淡时，参考标题、图片与区块的安排。</div><div class="pills"><span class="pill">产品展示</span><span class="pill">布局</span></div></div>
+    </div>
+  </div>
+
+  <div class="cat">
+    <div class="cat-h"><span class="c-n">组件与源码</span><span class="c-c">10 个 · code</span></div>
+    <div class="cards">
+      <div class="icard"><div class="i-n">shadcn/ui</div><div class="i-u"><a href="https://ui.shadcn.com/">ui.shadcn.com</a></div><div class="i-t">React 项目先搭风格一致的基础界面，再按需求修改。</div><div class="pills"><span class="pill">React</span><span class="pill">组件源码</span></div></div>
+      <div class="icard"><div class="i-n">Radix UI</div><div class="i-u"><a href="https://www.radix-ui.com/">radix-ui.com</a></div><div class="i-t">需要定制界面并认真处理键盘操作、焦点与交互行为时。</div><div class="pills"><span class="pill">可访问性</span><span class="pill">交互基础</span></div></div>
+      <div class="icard"><div class="i-n">Material UI</div><div class="i-u"><a href="https://mui.com/material-ui/">mui.com</a></div><div class="i-t">做数据展示或操作界面时，直接采用一套一致的组件体系。</div><div class="pills"><span class="pill">React</span><span class="pill">数据界面</span></div></div>
+      <div class="icard"><div class="i-n">Ant Design</div><div class="i-u"><a href="https://ant.design/">ant.design</a></div><div class="i-t">有限时间内搭建表单较多、操作较多的管理或协作页面。</div><div class="pills"><span class="pill">中文文档</span><span class="pill">后台</span></div></div>
+      <div class="icard"><div class="i-n">daisyUI</div><div class="i-u"><a href="https://daisyui.com/">daisyui.com</a></div><div class="i-t">希望减少重复样式编写，快速统一基础界面外观时。</div><div class="pills"><span class="pill">Tailwind</span><span class="pill">主题</span></div></div>
+      <div class="icard"><div class="i-n">Aceternity UI</div><div class="i-u"><a href="https://ui.aceternity.com/">ui.aceternity.com</a></div><div class="i-t">核心功能已经能用，想给首屏或展示区加一个视觉重点时。</div><div class="pills"><span class="pill">展示组件</span><span class="pill">动效</span></div></div>
+      <div class="icard"><div class="i-n">Magic UI</div><div class="i-u"><a href="https://magicui.design/">magicui.design</a></div><div class="i-t">在现有 React 界面里加入少量展示效果并保持风格一致。</div><div class="pills"><span class="pill">Motion</span><span class="pill">React</span></div></div>
+      <div class="icard"><div class="i-n">HyperUI</div><div class="i-u"><a href="https://www.hyperui.dev/">hyperui.dev</a></div><div class="i-t">已有 Tailwind 项目，想直接修改一小块 HTML 与样式时。</div><div class="pills"><span class="pill">界面片段</span><span class="pill">HTML</span></div></div>
+      <div class="icard"><div class="i-n">21st.dev</div><div class="i-u"><a href="https://21st.dev/">21st.dev</a></div><div class="i-t">知道自己缺哪个界面元素，希望先比较现成组件时。</div><div class="pills"><span class="pill">社区组件</span><span class="pill">模板</span></div></div>
+      <div class="icard"><div class="i-n">React Bits</div><div class="i-u"><a href="https://reactbits.dev/">reactbits.dev</a></div><div class="i-t">需要一个局部视觉效果，并有时间测试移动端性能时。</div><div class="pills"><span class="pill">动画组件</span><span class="pill">文字效果</span></div></div>
+    </div>
+  </div>
+
+  <div class="cat">
+    <div class="cat-h"><span class="c-n">动效</span><span class="c-c">3 个 · code / asset</span></div>
+    <div class="cards">
+      <div class="icard"><div class="i-n">Motion</div><div class="i-u"><a href="https://motion.dev/">motion.dev</a></div><div class="i-t">希望状态变化更容易看懂，或给界面补上有目的的动效时。</div><div class="pills"><span class="pill">交互动效</span><span class="pill">手势</span></div></div>
+      <div class="icard"><div class="i-n">GSAP</div><div class="i-u"><a href="https://gsap.com/">gsap.com</a></div><div class="i-t">有明确演示需求，需要把多个动画按顺序组织与控制时。</div><div class="pills"><span class="pill">时间线</span><span class="pill">滚动动效</span></div></div>
+      <div class="icard"><div class="i-n">LottieFiles</div><div class="i-u"><a href="https://lottiefiles.com/">lottiefiles.com</a></div><div class="i-t">需要现成动画素材，并能明确控制播放目的与次数时。</div><div class="pills"><span class="pill">动画素材</span><span class="pill">空状态</span></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ── 04 ─────────────────────────────────────────── -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04</span><h2>赛道技能包：安装不等于完成作品</h2></div>
+  <p class="sec-sub">技能库按四个赛道（通用 / 游戏 / 影视 / AI Agent）组织。每个技能固定上游 commit 与校验和，每个技能包说明适用条件、产出物和已知限制——「复制安装命令」和「客户端真的加载了」是两件分别记录的事。</p>
+
+  <h3>三个已发布赛道包</h3>
+  <table>
+    <thead><tr><th>技能包</th><th>赛道</th><th>产出物</th><th>兼容性</th></tr></thead>
+    <tbody>
+      <tr><td><b>游戏原型与试玩包</b></td><td><code>game</code></td><td>一段可操作的游戏闭环、试玩记录和作品说明</td><td class="pend">尚未整包实测</td></tr>
+      <tr><td><b>影视制作与交付准备包</b></td><td><code>film</code></td><td>明确样片规格、媒体处理方案和交付说明</td><td class="pend">尚未整包实测</td></tr>
+      <tr><td><b>AI Agent 工具与演示包</b></td><td><code>ai_agent</code></td><td>有工具边界、失败回退与真实调用示例的 Agent 演示</td><td class="pend">尚未整包实测</td></tr>
+    </tbody>
+  </table>
+
+  <h3>技能清单（8 项）</h3>
+  <table>
+    <thead><tr><th>技能</th><th>用途</th><th>适用赛道</th></tr></thead>
+    <tbody>
+      <tr><td><b>有辨识度的前端设计</b></td><td>将页面需求转成具体视觉与前端实现方案</td><td>通用 / 游戏 / 影视 / AI Agent</td></tr>
+      <tr><td><b>最小作品规格</b></td><td>将模糊想法整理成范围、输入输出与验收要求</td><td>通用 / 游戏 / 影视 / AI Agent</td></tr>
+      <tr><td><b>作品 README 与演示说明</b></td><td>编写可执行的启动、功能与交付说明</td><td>通用 / 游戏 / 影视 / AI Agent</td></tr>
+      <tr><td><b>Web 应用交互测试</b></td><td>借助浏览器自动化检查本地 Web 应用的交互与结果</td><td>通用 / 游戏 / AI Agent</td></tr>
+      <tr><td><b>MCP 工具服务开发</b></td><td>指导设计并实现供 AI Agent 调用的 MCP 工具服务</td><td>AI Agent</td></tr>
+      <tr><td><b>AI Agent 架构与职责</b></td><td>为 Agent 工作流划分职责、工具边界和执行结构（只做架构）</td><td>AI Agent</td></tr>
+      <tr><td><b>Web 游戏原型开发指导</b></td><td>围绕 Canvas / WebGL / JavaScript 制作浏览器游戏原型</td><td>游戏</td></tr>
+      <tr><td><b>媒体处理工作流</b></td><td>指导接入媒体处理服务与工作流（需自备账号与费用核查）</td><td>影视</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cols" style="margin-top:22px">
+    <div class="box"><h4>技能包怎么用</h4><p>先核对前置条件与许可，预览并确认清单，只授权项目目录进行文件安装，再到客户端里检查技能是否真的加载，最后用一个示例任务验证产物。</p></div>
+    <div class="box"><h4>不做什么</h4><p>不替用户安装本机技能，不自动补装依赖，不覆盖同名文件，不把「文件写入成功」当成「客户端加载成功」或「任务验证通过」。</p></div>
+  </div>
+</div></section>
+
+<!-- ── 05 ─────────────────────────────────────────── -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">05</span><h2>团队空间：一个参赛项目一个共享空间</h2></div>
+  <p class="sec-sub">不看板、不打卡。空间里放着这场比赛的目标、资料、任务交接、代码保存与正式提交记录，以及赛后的复盘。</p>
+  <div class="cols">
+    <div class="box"><h4>成员与分工</h4><p>邀请链接或本地二维码加入，按人数限额；每人填写可用时间并自选职责，AI 可给建议但由管理员确认正式分工。</p></div>
+    <div class="box"><h4>任务与交接</h4><p>每个任务写明负责人、成果、验收条件、预计用时和前置交接。成员报告完成后仍需实际检查，进度在空间里更新。</p></div>
+    <div class="box"><h4>三类记录分开</h4><p>代码版本保存、实际运行检查、向主办方正式提交是三件事，分别留下记录与凭证；没有回执时注明是本人自报。</p></div>
+    <div class="box"><h4>隐私边界</h4><p>原始测评、个人准备与出行资料默认仅本人可见，个人 AI 也继承本人导航记忆；是否共享由本人选择，邀请队友不会自动共享。</p></div>
+    <div class="box"><h4>赛后复盘</h4><p>对照实际任务与交付记录写复盘，确认哪些经验值得复用；复盘不会生成第二份「运行成功」或「提交成功」状态。</p></div>
+    <div class="box"><h4>归档即只读</h4><p>项目归档后业务内容只读，历史保留，不删除既有交付凭证。</p></div>
+  </div>
+</div></section>
+
+<!-- ── 06 ─────────────────────────────────────────── -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">06</span><h2>技术实现</h2></div>
+  <p class="sec-sub">模块化单体：Next.js App Router + React + TypeScript + PostgreSQL，采集与分析 worker 独立运行。十个业务模块通过注入的 Port 协作，不互相读写私有存储。</p>
+  <div class="cols">
+    <div class="box"><h4>前端与运行时</h4><p class="mono">Next.js App Router · React · TypeScript · Node 24</p></div>
+    <div class="box"><h4>数据</h4><p class="mono">PostgreSQL 17 · 68 个版本化迁移 · 已应用迁移不可重写</p></div>
+    <div class="box"><h4>模型调用</h4><p class="mono">官方 @deepseek-ai/dsh@0.2.1-alpha.1（固定版本，不用浮动 tag）</p></div>
+    <div class="box"><h4>子进程隔离</h4><p>每次分析启动独立无工具子进程，不继承数据库、邮件、搜索、GitHub 密钥；用完即终止。</p></div>
+    <div class="box"><h4>费用与预算账本</h4><p>搜索、分析与灵感分开记账，按 UTC 日设上限；付费请求结果未知时保守结算并禁止自动重发。</p></div>
+    <div class="box"><h4>抓取边界</h4><p>只访问公开页面，校验 DNS、TLS、robots、重定向、体积与超时；目录格式变化就停下留安全错误码，不把整张列表当成一场比赛。</p></div>
+  </div>
+
+  <h3>这套做法换来了什么</h3>
+  <table>
+    <thead><tr><th>纪律</th><th>具体做法</th></tr></thead>
+    <tbody>
+      <tr><td>不虚构</td><td>卡片始终是未核验线索；模型只能从实际可见 HTML 里选择完整候选链接，不能构造链接。</td></tr>
+      <tr><td>不降级</td><td>自由聊天固定走 DSH，禁止退化成通用 HTTP 或静态回复；配置缺失就明确报错。</td></tr>
+      <tr><td>不重复收费</td><td>结果未知的付费请求写入持久 hold，重启或跨日都不重放；只有管理员新建 run 才授权新尝试。</td></tr>
+      <tr><td>可核对</td><td>比赛页展示分析结果、折叠依据和原文跳转；管理员后台单独放采集配置、额度与暂停。</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<!-- ── 07 ─────────────────────────────────────────── -->
+<section><div class="wrap">
+  <div class="sec-head"><span class="sec-num">07</span><h2>还没做完的部分</h2></div>
+  <p class="sec-sub">本站把未验证边界写在验收文档里，而不是等被问到才说。以下是当前真实的未完成项。</p>
+  <table>
+    <thead><tr><th>项目</th><th>当前状态</th></tr></thead>
+    <tbody>
+      <tr><td>真实邮件发信</td><td class="pend">待真实收件箱验收</td></tr>
+      <tr><td>实体手机登录</td><td class="pend">待真机验收</td></tr>
+      <tr><td>远程 PostgreSQL 与容器部署</td><td class="pend">待目标环境验收</td></tr>
+      <tr><td>GitHub App 真实授权与保存</td><td class="pend">按用户指示暂缓</td></tr>
+      <tr><td>普通公网域名解析与旧入口证书</td><td class="pend">独立未解决边界</td></tr>
+      <tr><td>八种客户端加载技能包的任务效果</td><td class="pend">需目标环境逐项验收</td></tr>
+    </tbody>
+  </table>
+  <div class="caution" style="margin-top:22px">
+    <b>关于这个页面</b>
+    <ul>
+      <li>本页是<b>静态演示</b>：没有登录、没有 AI 调用、没有数据库，按钮与站内路径以文字形式展示，不做成可点击链接。</li>
+      <li>赛事收据、路线图、灵感官网与技能清单都来自项目内已保存的真实数据与已核查的官网身份，未做美化或补造。</li>
+      <li>完整应用包含邮箱验证码登录、赛事自动发现、项目 AI 工作流、团队空间与后台审核，需要数据库与模型凭据才能运行。</li>
+    </ul>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><div class="fbox">
+  <p style="margin:0 0 8px"><b>草根黑客松情报局</b> · Hackathon Field Guide · 产品演示页</p>
+  <p style="margin:0 0 8px">本页为静态演示版本，用于展示产品形态与数据纪律；站内功能入口在实际应用中以登录后的工作台呈现。</p>
+  <p style="margin:0">灵感官网链接均指向各站官方入口，仅作设计参考；图片、字体与代码的使用授权需向各站与原作者单独确认。</p>
+</div></div></footer>
+
+</body>
+</html>

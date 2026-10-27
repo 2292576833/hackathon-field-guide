@@ -1,0 +1,107 @@
+.shell { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 16px; align-items: start; }
+.pane { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 12px; min-width: 0; }
+.paneTitle { margin: 0 0 8px; font-size: 13px; color: var(--muted); letter-spacing: .04em; }
+.palette { display: grid; gap: 6px; }
+.paletteButton { min-height: 40px; text-align: left; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--control-line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.paletteButton:hover { border-color: var(--brand); }
+.paletteButton small { display: block; color: var(--muted); font-size: 11px; }
+.list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.row { display: flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; background: var(--paper); }
+.rowActive { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand) inset; }
+.rowLabel { flex: 1; min-width: 0; text-align: left; background: none; border: none; padding: 0; cursor: pointer; color: var(--ink); font: inherit; }
+.rowMeta { color: var(--muted); font-size: 11px; }
+.iconButton { flex: 0 0 auto; min-width: 32px; height: 32px; padding: 0 8px; white-space: nowrap; border-radius: 8px; border: 1px solid var(--control-line); background: var(--paper); cursor: pointer; font: inherit; font-size: 13px; color: var(--ink); }
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+.badge { border-radius: 999px; padding: 2px 10px; font-size: 12px; border: 1px solid var(--line); }
+.draft { background: var(--tint); }
+.published { background: var(--success-bg); border-color: var(--success); }
+.suspended { background: var(--warning-bg); border-color: var(--warning); }
+.code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+.findings { margin: 0; padding-left: 18px; }
+.findings li { margin: 4px 0; }
+.preview { width: 100%; height: min(72vh, 760px); margin: 0 auto 16px; border: 1px solid var(--line); border-radius: 16px; overflow: auto; background: #fff; box-shadow: 0 10px 30px rgba(20,20,20,.06); padding: 18px; }
+.field { display: block; margin: 0 0 10px; }
+.field > span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.field input, .field select, .field textarea { width: 100%; box-sizing: border-box; }
+@media (max-width: 1024px) { .shell { grid-template-columns: 1fr; } }
+
+/* 想法画布与气泡 */
+.canvas { position: relative; min-height: 380px; margin: 0 0 16px; border: 1px dashed var(--control-line); border-radius: 14px; background: var(--paper); }
+.canvasHint { margin: 0; padding: 28px 20px; color: var(--muted); font-size: 13px; }
+.bubble { position: absolute; z-index: 4; width: 260px; transform: translate(-14px, -12px); background: var(--paper); border: 1px solid var(--brand); border-radius: 12px; padding: 8px; box-shadow: 0 10px 28px rgba(20,20,20,.14); display: grid; gap: 6px; }
+.bubble::after { content: ""; position: absolute; left: 14px; bottom: -7px; width: 12px; height: 12px; background: var(--paper); border-right: 1px solid var(--brand); border-bottom: 1px solid var(--brand); transform: rotate(45deg); }
+.bubble textarea { width: 100%; box-sizing: border-box; resize: vertical; font: inherit; }
+.bubbleRow { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.chip { position: absolute; z-index: 4; width: 26px; height: 26px; transform: translate(-8px, -8px); border-radius: 999px; border: 1px solid var(--brand); background: var(--brand); color: #fff; font-size: 12px; cursor: pointer; }
+.chipButton { flex: 0 0 auto; border: 1px solid var(--control-line); background: var(--paper); border-radius: 8px; padding: 4px 8px; font-size: 12px; cursor: pointer; white-space: nowrap; font-family: inherit; }
+
+/* 画布上的区块外壳与就地编辑 */
+.blockFrame { position: relative; border-radius: 10px; transition: outline-color .12s ease; outline: 1px solid transparent; outline-offset: 3px; }
+.blockFrame:hover { outline-color: var(--control-line); }
+.blockFrameSelected { outline-color: var(--brand); }
+.blockTools { position: absolute; top: -12px; right: -6px; z-index: 5; display: flex; gap: 2px; padding: 2px; border-radius: 8px; background: var(--paper); border: 1px solid var(--control-line); box-shadow: 0 6px 18px rgba(20,20,20,.12); }
+.blockTools button { width: 26px; height: 26px; border: none; background: none; cursor: pointer; border-radius: 6px; color: var(--ink); }
+.blockTools button:hover { background: var(--tint); }
+.inlineEditor { position: absolute; inset: 0; z-index: 6; display: grid; gap: 6px; padding: 10px; border: 1px solid var(--brand); border-radius: 10px; background: var(--paper); }
+.inlineEditor input, .inlineEditor textarea { width: 100%; box-sizing: border-box; font: inherit; }
+
+/* 三栏工作台外壳（结构参考 OpenPage 的编辑器，样式沿用本站令牌） */
+.shellRoot { display: grid; gap: 12px; }
+.topbar { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.topbarSpacer { flex: 1; }
+.more { position: relative; }
+.more > summary { list-style: none; cursor: pointer; }
+.morePanel { position: absolute; right: 0; top: 34px; z-index: 30; width: 240px; padding: 10px; display: grid; gap: 8px; background: var(--paper); border: 1px solid var(--control-line); border-radius: 12px; box-shadow: 0 12px 30px rgba(20,20,20,.14); }
+.workspace { display: grid; grid-template-columns: 250px minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+.leftCol, .rightCol { display: grid; gap: 12px; position: sticky; top: 64px; max-height: calc(100vh - 84px); overflow: auto; }
+.centerCol { min-width: 360px; display: grid; gap: 10px; }
+.sectionTitle { margin: 0 0 8px; font-size: 12px; letter-spacing: .04em; color: var(--muted); }
+details > summary.sectionTitle { cursor: pointer; }
+.canvasToolbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 6px 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.canvasDivider { width: 1px; height: 18px; background: var(--line); }
+.layers { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.layerRow { display: flex; align-items: center; gap: 4px; border-radius: 8px; padding: 2px 4px; }
+.layerRow:hover { background: var(--tint); }
+.layerRowActive { outline: 1px solid var(--brand); }
+.layerLabel { flex: 1; min-width: 0; text-align: left; background: none; border: none; padding: 4px 2px; cursor: pointer; color: var(--ink); font: inherit; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.layerTools { display: flex; gap: 2px; opacity: 0; transition: opacity .12s ease; }
+.layerRow:hover .layerTools { opacity: 1; }
+.layerTools button { width: 24px; height: 24px; border: 1px solid var(--control-line); background: var(--paper); border-radius: 6px; cursor: pointer; }
+.emptyHint { margin: 0; padding: 10px 4px; color: var(--muted); font-size: 13px; }
+.modal { position: fixed; inset: 0; z-index: 60; background: rgba(20,20,20,.35); display: grid; place-items: center; }
+.modalCard { width: min(420px, 92vw); padding: 16px; display: grid; gap: 10px; background: var(--paper); border-radius: 16px; box-shadow: 0 20px 60px rgba(20,20,20,.25); }
+@media (max-width: 1100px) { .workspace { grid-template-columns: 220px minmax(0, 1fr); } .rightCol { grid-column: 1 / -1; position: static; max-height: none; } }
+
+/* 防止任何容器把按钮压成竖排文字 */
+.bar > button, .topbar > button, .canvasToolbar > button { flex: 0 0 auto; }
+.pane button, .pane summary { word-break: keep-all; }
+
+/* 圈选与拖动 */
+.marquee { position: absolute; z-index: 7; border: 1px dashed var(--brand); background: color-mix(in srgb, var(--brand) 12%, transparent); border-radius: 6px; pointer-events: none; }
+.layerGrip { width: 14px; text-align: center; color: var(--muted); font-size: 10px; letter-spacing: -1px; cursor: grab; }
+.layerRowDragging { opacity: .45; }
+
+/* 窄屏：工作台退化为单列，避免中间栏被挤成滚动条小方块 */
+@media (max-width: 900px) {
+  .workspace { grid-template-columns: 1fr; }
+  .leftCol, .rightCol { position: static; max-height: none; }
+  .centerCol { min-width: 0; }
+  .preview { height: 64vh; }
+}
+@media (max-width: 1180px) {
+  .workspace { grid-template-columns: 220px minmax(360px, 1fr); }
+  .rightCol { grid-column: 1 / -1; position: static; max-height: none; }
+}
+
+/* 模板预览卡片：把真实渲染缩小放进缩略图，所见即所得 */
+.templateGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 8px; }
+.templateCard { display: grid; gap: 4px; padding: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); align-content: start; }
+.templatePreview { position: relative; height: 110px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.templateScaler { position: absolute; top: 0; left: 0; width: 800px; transform: scale(0.28); transform-origin: top left; pointer-events: none; }
+.templateName { font-size: 13px; }
+
+/* 设计灵感卡片 */
+.designCard { display: flex; align-items: center; gap: 6px; padding: 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); cursor: grab; }
+.designCard:active { cursor: grabbing; }
+.designSwatches { display: inline-flex; gap: 2px; flex: 0 0 auto; }
+.designSwatches i { display: block; width: 12px; height: 12px; border-radius: 3px; border: 1px solid rgba(0,0,0,.12); }

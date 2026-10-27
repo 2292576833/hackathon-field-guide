@@ -1,0 +1,27 @@
+.panel{min-width:0;overflow-wrap:anywhere;background:var(--space-component-surface);border-radius:8px;padding:12px}
+.heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.heading h2{margin:0;font-size:18px}
+.heading a,.next a,.waiting a{color:var(--action);text-underline-offset:4px;font-size:13px}
+.counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}
+.counts>div{display:grid;gap:4px}
+.counts span{font-size:12px;color:var(--muted)}
+.counts strong{font-size:24px;line-height:1.2}
+.next{display:flex;gap:8px 12px;align-items:baseline;flex-wrap:wrap}
+.next>span{font-size:12px;color:var(--muted)}
+.next>strong{font-size:15px}
+.next button{border:0;background:transparent;color:var(--action);font:inherit;font-size:13px;cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:4px}
+.notice{line-height:1.65;font-size:13px;margin:8px 0}
+.note{font-size:12px;color:var(--muted);line-height:1.7;margin:6px 0}
+.waiting,.explanation{margin:8px 0 0;font-size:12px;color:var(--muted)}
+.waiting summary,.explanation summary{min-height:32px;padding:6px 0;cursor:pointer}
+.waiting ul{margin:6px 0;padding-left:18px}
+.waiting li{margin-bottom:10px}
+.waiting p{font-size:13px;line-height:1.6;margin:4px 0}
+.waiting small{display:block;line-height:1.6}
+/* 容量对照（规划31 第1.5项）：两个真实数字并排，不做进度条、不出百分比。 */
+.capacityList{list-style:none;margin:6px 0;padding:0;display:grid;gap:8px}
+.capacityList li{display:flex;gap:6px 14px;flex-wrap:wrap;align-items:baseline;padding:6px 0;border-top:1px solid var(--line)}
+.capacityList strong{font-size:13px;color:var(--ink);min-width:4em}
+.capacityList span{font-size:12px;color:var(--muted)}
+.panel :is(a,button,summary):focus-visible{outline:2px solid var(--action);outline-offset:3px}
+@media(max-width:620px){.counts{gap:8px}.counts span{font-size:11px}.counts strong{font-size:22px}.heading{align-items:flex-start}.next>strong{font-size:14px}.panel :is(a,button,summary){min-height:40px}}

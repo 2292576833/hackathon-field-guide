@@ -1,0 +1,28 @@
+.panel{min-width:0;padding:0;overflow:visible}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:20px}
+.item,.newDocument{min-width:0;margin:0;padding:0;overflow:visible}
+.newDocument:not(:first-child){margin-top:20px}
+.bodyFrame{position:relative;min-width:0;border:1px solid var(--line);border-radius:4px;background:var(--surface);padding:16px 48px 16px 16px;overflow:visible}
+.fullText,.editor{font-family:ui-monospace,"Cascadia Code","Microsoft YaHei",monospace;font-size:14px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;user-select:text;cursor:text;color:var(--ink)}
+.fullText{min-height:24px;overflow:visible}
+.editor{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:180px;max-height:none;border:0;border-radius:0;padding:0;margin:0;background:transparent;resize:none;overflow:hidden}
+.editor:focus-visible{outline:1px solid var(--action);outline-offset:4px}
+.menu{position:absolute;top:5px;right:5px;z-index:2;max-width:calc(100% - 10px)}
+.menu[open]{z-index:5}
+.menu summary{display:flex;align-items:center;justify-content:center;list-style:none;width:32px;height:32px;border:0;border-radius:4px;background:transparent;color:var(--muted);cursor:pointer;font-size:22px;line-height:1;user-select:none}
+.menu summary::-webkit-details-marker{display:none}
+.menu summary:hover,.menu[open] summary{color:var(--ink);background:var(--paper)}
+.menuContents{position:absolute;right:0;top:36px;display:grid;gap:2px;width:240px;max-width:min(240px,calc(100vw - 64px));padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--paper);box-shadow:0 4px 18px rgb(0 0 0 / .08);overflow-wrap:anywhere;white-space:normal}
+.menuContents button{width:100%;border:0;border-radius:4px;background:transparent;padding:8px;text-align:left;font:inherit;font-size:13px;color:var(--ink);cursor:pointer;white-space:normal;overflow-wrap:anywhere}
+.menuContents button:hover{background:var(--surface)}
+.menuContents button:disabled{opacity:.5;cursor:default}
+.menuContents button.delete{color:var(--action)}
+.menuNote{margin:0;padding:4px 8px 7px;font-size:12px;line-height:1.6;color:var(--muted)}
+.menu summary:focus-visible,.menuContents button:focus-visible{outline:2px solid var(--action);outline-offset:2px}
+.error,.noticeLine,.readonly,.loading,.draftState{margin:8px 0;font-size:13px;line-height:1.6;overflow-wrap:anywhere}
+.error{color:#c0392b}
+.noticeLine{color:var(--action)}
+.readonly,.loading,.draftState{color:var(--muted)}
+.recovery{border:0;background:transparent;color:var(--action);font:inherit;text-decoration:underline;cursor:pointer;margin-left:8px;padding:0}
+.bodyFrame .error,.draftState{margin:10px 0 0}
+@media(max-width:600px){.bodyFrame{padding:12px 46px 12px 12px}.menu summary{width:36px;height:36px}.menuContents{top:40px}.menuContents button{min-height:40px}.list{gap:16px}.newDocument:not(:first-child){margin-top:16px}}

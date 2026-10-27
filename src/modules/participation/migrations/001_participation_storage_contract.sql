@@ -1,0 +1,15 @@
+-- Integration suggestion only. The coordinating session owns root migrations.
+-- No new participation table is required.
+-- Root 021_personal_dsh_workspaces.sql already owns personal_ai_artifacts,
+-- participation_plan kind, JSONB data, owner user_id and its history index.
+-- Root 022_registration_and_participant_profiles.sql owns the profile input.
+-- This module must not duplicate profile or artifact persistence.
+--
+-- Before deploying the service, verify in the target database:
+--   1. personal_ai_artifacts accepts participation_plan.
+--   2. personal_ai_artifacts(user_id,kind,created_at DESC,id) has an index.
+--   3. PersonalAiPort scopes every read/write to actor.userId and checks guard.
+--   4. Unknown paid requests remain held and are not replayed automatically.
+-- Existing artifact JSON is not rewritten. New data stores schemaVersion=1.
+-- Rollback code can leave existing personal plans readable as private artifacts.
+-- This file intentionally contains no DDL and has not been executed.

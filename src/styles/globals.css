@@ -1,0 +1,104 @@
+/*
+ * 设计令牌（依据 docs/设计/网页视觉设计.md 第 4.1 节）。
+ * 配色方案见 docs/设计/配色方案.md：5 套皮肤通过 <html class="palette-N"> 覆盖这里的同名变量。
+ */
+:root {
+  --paper: #f6f3eb;
+  --surface: #fff;
+  --space-component-surface: #fffdf8;
+  --ink: #21201c;
+  --muted: #666257;
+  --brand: #ef4d2e;
+  --action: #b8351e;
+  --action-hover: #9c2a17;
+  --tint: #fbe9e2;
+  --line: #d9d4c8;
+  --control-line: #7d776c;
+  --success: #2c6647;
+  --success-bg: #ecf3eb;
+  --warning: #845311;
+  --warning-bg: #fff1d6;
+  color-scheme: light;
+}
+
+/*
+ * 可选皮肤。只覆盖变量，不改任何布局或组件样式，因此切换是纯配色变化。
+ * 用法：<html class="palette-2">。默认不加 class 即方案①（暖白橙红）。
+ * 全部方案均通过正文/链接 ≥4.5:1、按钮白字 ≥4.5:1 的对比度校验。
+ */
+.palette-1 {
+  --paper: #f6f3eb; --surface: #fff; --space-component-surface: #fffdf8;
+  --ink: #21201c; --muted: #666257; --brand: #ef4d2e; --action: #b8351e; --action-hover: #9c2a17;
+  --tint: #fbe9e2; --line: #d9d4c8; --control-line: #7d776c;
+  --success: #2c6647; --success-bg: #ecf3eb; --warning: #845311; --warning-bg: #fff1d6;
+}
+.palette-2 {
+  --paper: #f4f2ec; --surface: #fff; --space-component-surface: #fffefa;
+  --ink: #1e2422; --muted: #5e6a65; --brand: #1f8a70; --action: #146b57; --action-hover: #0f5645;
+  --tint: #e4f0ec; --line: #d5d8d2; --control-line: #6e7a75;
+  --success: #2c6647; --success-bg: #eaf3ec; --warning: #845311; --warning-bg: #fff3dc;
+}
+.palette-3 {
+  --paper: #f3f5f9; --surface: #fff; --space-component-surface: #fbfcfe;
+  --ink: #1b2333; --muted: #5b6579; --brand: #3b5bdb; --action: #2f49b0; --action-hover: #263c93;
+  --tint: #e6eafb; --line: #d3d9e6; --control-line: #6c7793;
+  --success: #2a6b4f; --success-bg: #e9f2ed; --warning: #8a5512; --warning-bg: #fff2da;
+}
+.palette-4 {
+  --paper: #f7f4f7; --surface: #fff; --space-component-surface: #fefcfe;
+  --ink: #241f2b; --muted: #6a6072; --brand: #7c4dff; --action: #6534d9; --action-hover: #5428bc;
+  --tint: #efe8fd; --line: #dbd4e0; --control-line: #7a6f84;
+  --success: #2f6a4c; --success-bg: #eaf3ed; --warning: #8a5512; --warning-bg: #fff2da;
+}
+.palette-5 {
+  --paper: #f5f1e7; --surface: #fff; --space-component-surface: #fffdf6;
+  --ink: #191817; --muted: #66605a; --brand: #c2452d; --action: #8e2f1e; --action-hover: #742416;
+  --tint: #f6e6df; --line: #d8d0c2; --control-line: #7a7264;
+  --success: #33604a; --success-bg: #ebf2ee; --warning: #845311; --warning-bg: #fff1d6;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+.site-shell { max-width: 1280px; margin: 0 auto; padding: 32px; }
+.brand-row { display: flex; align-items: center; gap: 12px; padding-bottom: 24px; border-bottom: 1px solid var(--line); font-weight: 700; }
+.brand-mark { width: 16px; height: 16px; background: var(--brand); }
+.edition { margin-left: auto; color: var(--muted); font-size: 14px; font-weight: 400; }
+.hero { padding: 80px 0 64px; }
+.eyebrow, .section-number { color: var(--action); font-family: ui-monospace, Consolas, monospace; font-size: 13px; letter-spacing: .06em; }
+h1 { margin: 24px 0; font-size: clamp(36px, 5.4vw, 76px); line-height: 1.16; letter-spacing: -.035em; }
+.intro { font-size: 20px; line-height: 1.65; }
+.preparation { max-width: 680px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.columns article { padding: 28px 24px 28px 0; }
+.columns h2 { font-size: 22px; line-height: 1.4; }
+.columns p { color: var(--muted); font-size: 16px; line-height: 1.7; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--action); outline-offset: 3px; }
+@media (max-width: 760px) { .site-shell { padding: 24px 20px; } .hero { padding: 48px 0 36px; } .columns { grid-template-columns: 1fr; } .columns article { border-bottom: 1px solid var(--line); } .brand-row { flex-wrap: wrap; } .edition { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* 配色切换器（预览用，可随时删除；见 src/components/palette-switcher.tsx）
+   按钮是页头里的普通元素，由页头 flex 排布（固定定位会压住「注册」按钮）。
+   展开的面板用 fixed 贴到视口右上：用 absolute 会被锚到初始包含块，面板会画到页面深处、视口外。 */
+.paletteFab { display: inline-flex; align-items: center; gap: 6px; align-self: center;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink);
+  padding: 7px 12px; font: inherit; font-size: 12px; font-weight: 600; box-shadow: none;
+  cursor: pointer; opacity: .8; transition: opacity .15s ease; }
+.paletteFab:hover, .paletteFab:focus-visible { opacity: 1; border-color: var(--action); color: var(--action); }
+.paletteFabPanel { position: fixed; right: 22px; top: 84px; z-index: 90; width: 196px; display: grid; gap: 1px;
+  padding: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: 0 12px 30px rgba(0,0,0,.16); }
+@media (max-width: 620px) {
+  .paletteFabPanel { right: 12px; top: 132px; }
+}
+.paletteFabHead { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 4px 6px; font-size: 12px; }
+.paletteFabClose { border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 11px; cursor: pointer; padding: 2px 4px; }
+.paletteFabClose:hover { color: var(--action); }
+.paletteFabItem { display: flex; align-items: center; gap: 7px; border: 0; background: transparent; text-align: left;
+  font: inherit; font-size: 12px; padding: 7px; border-radius: 7px; cursor: pointer; color: var(--ink); }
+.paletteFabItem:hover { background: var(--tint); }
+.paletteFabItem[aria-pressed="true"] { font-weight: 700; color: var(--action); }
+.paletteFabDot { width: 11px; height: 11px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+.paletteFabDot[data-palette="palette-1"] { background: #b8351e; }
+.paletteFabDot[data-palette="palette-2"] { background: #146b57; }
+.paletteFabDot[data-palette="palette-3"] { background: #2f49b0; }
+.paletteFabDot[data-palette="palette-4"] { background: #6534d9; }
+.paletteFabDot[data-palette="palette-5"] { background: #8e2f1e; }
+.paletteFabNote { margin: 6px 8px 2px; font-size: 11px; color: var(--muted); font-style: normal; }

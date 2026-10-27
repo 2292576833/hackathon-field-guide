@@ -1,0 +1,35 @@
+.workbench,.checklist{min-width:0;margin:0 0 1.3rem;padding:clamp(1rem,2.5vw,1.6rem);border:1px solid #ded6cb;border-radius:18px;background:var(--space-component-surface);color:#302821;overflow-wrap:anywhere}
+.heading{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem}
+.heading h2,.checklist h2{margin:.25rem 0 .7rem;font-size:clamp(1.2rem,2.8vw,1.6rem)}
+.eyebrow{color:#925036;font-size:.85rem;font-weight:700;letter-spacing:.03em}
+.muted{color:#71665a;font-size:.9rem;line-height:1.7}
+.badge{display:inline-block;max-width:100%;padding:.22rem .6rem;border:1px solid #e9d9c9;border-radius:999px;background:#fff6e9;font-size:.8rem;line-height:1.5}
+.next{margin:1rem 0;padding:1.15rem;border-left:4px solid #d84f2c;border-radius:4px 12px 12px 4px;background:#fff2e5}
+.next h3{margin:0 0 .55rem}.next p{line-height:1.7}
+.taskShortcuts h3{font-size:1rem;margin:.8rem 0 .4rem}.taskShortcuts ul{list-style:none;margin:.2rem 0;padding:0}.taskShortcuts li{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.35rem 0}
+.compactDetails>summary{min-height:44px;display:flex;align-items:center;color:#6c5747;cursor:pointer;font-size:.9rem}.compactDetails>summary::before{content:"＋";padding-right:.45rem}.compactDetails[open]>summary::before{content:"−"}.compactActions{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin:.7rem 0}.compactActions .link{padding:.2rem 0}
+.primary,.secondary,.phase{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.65rem .9rem;border-radius:10px;font:inherit;line-height:1.5;text-align:center;cursor:pointer;text-decoration:none}
+.primary{border:1px solid #b64022;color:white;background:#b64022;font-weight:650}
+.secondary{border:1px solid #d9cabc;background:var(--space-component-surface);color:#59382a}
+.secondary:disabled,.textButton:disabled{opacity:.6;cursor:wait}
+.solo{margin-bottom:0;color:#654836;font-size:.9rem}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+.facts div{min-width:0;padding:.9rem;border-radius:10px;background:#f7f3eb}
+.facts dt{color:#776758;font-size:.85rem}.facts dd{margin:.4rem 0 0;line-height:1.65;white-space:pre-wrap}
+.notice,.caution{padding:.8rem 1rem;border-radius:10px;background:#fff2e3;color:#674735;font-size:.9rem;line-height:1.7}
+.phases{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem;margin-top:1.25rem}
+.phase{min-width:0;border:1px solid #ded6cb;background:#f8f4ec;color:#65594d;font-size:.9rem}
+.phase[aria-selected=true]{border-color:#b64022;background:#b64022;color:white;font-weight:650}
+.phaseContent{margin-top:1rem;padding-top:.4rem}.phaseContent>h3{margin:0}.phaseContent>p{line-height:1.7}
+.columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.columns>div{min-width:0}
+.columns h4{margin:.6rem 0}.links{list-style:none;padding:0;margin:.6rem 0}.links li{padding:.65rem 0;border-bottom:1px solid #eee5d9}.links p{margin:.4rem 0;color:#71665a;font-size:.9rem;line-height:1.7}
+.link,.textButton{color:#a53720;font-weight:600;text-underline-offset:3px}.link{display:inline-block;line-height:1.7}
+.textButton{min-height:44px;margin-left:.5rem;padding:.25rem;background:none;border:0;cursor:pointer;text-decoration:underline;font:inherit}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem;margin:.8rem 0}
+.item{margin:.8rem 0;padding:1rem;border:1px solid #e7ddcf;border-radius:12px;background:#fffefb;min-width:0}.item h3,.item h4{margin:0 0 .5rem}.item p{line-height:1.7}
+.checklist .checklist{border:0;padding:0}.checklist{margin-top:1rem}
+.requirements,.records{padding-left:1.15rem;line-height:1.7}.requirements li{margin:.45rem 0}.records>li{margin:1rem 0}.records p{margin:.45rem 0}.records summary,.item>summary{cursor:pointer;min-height:44px;line-height:1.7}
+.item code,.records code{font-size:.8rem;word-break:break-all;white-space:normal}
+.primary:focus-visible,.secondary:focus-visible,.phase:focus-visible,.link:focus-visible,.textButton:focus-visible{outline:3px solid #59382a;outline-offset:3px}
+@media(max-width:680px){.facts,.columns{grid-template-columns:1fr}.phases{grid-template-columns:repeat(2,minmax(0,1fr))}.phase:last-child{grid-column:1/-1}.workbench,.checklist{border-radius:12px;padding:1rem}.next{padding:.9rem}.primary{width:100%}.actions{align-items:flex-start}.heading .badge{font-size:.78rem}}
+@media(prefers-reduced-motion:reduce){.workbench *,.checklist *{scroll-behavior:auto}}

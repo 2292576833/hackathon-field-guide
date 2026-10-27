@@ -1,0 +1,51 @@
+.board{min-width:0;overflow-wrap:anywhere}
+.board button,.board select,.board a[class]{min-height:44px}
+.tasks{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:16px}
+.task{min-width:0;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.checkedTask{border-color:#7caa7a;background:#f7fbf5;box-shadow:inset 4px 0 0 #54864f}
+.checkedTag{color:#2f5b2c;background:#e5f1df;border:1px solid #a9c8a0}
+.task[hidden]{display:none}
+.task:target{border-color:var(--action)}
+.task:focus-visible{outline:3px solid var(--action);outline-offset:3px}
+.heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.heading h3{margin:0;flex:1;min-width:min(180px,100%)}
+.heading h4{margin:0;flex:1;min-width:min(160px,100%);font-size:16px}
+.heading>span{flex:none;margin-bottom:0}
+.teamSummary{margin:20px 0;padding:16px 18px;border:1px solid var(--line);border-radius:10px;background:#fff9ed}
+.teamSummary p{margin:8px 0 0}
+.pool{margin:20px 0;padding:18px;border:1px solid var(--line);border-radius:12px;background:#fcfaf5}
+.draftTag{color:#735015;background:#faeed3;border:1px solid #e7ce97}
+.poolFilters{gap:8px}
+.poolFilters button[aria-pressed=true]{border-color:var(--action);background:#fff2ec;color:#9e3521}
+.poolTasks{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px}
+.poolTask{min-width:0;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.poolTask[hidden]{display:none}
+.poolTask p{margin-top:10px}
+.assignment{margin-top:12px}
+.assignment>summary{min-height:44px;display:list-item;margin-left:18px}
+/* 交接候选：点一下带出既有信息（规划31 第1.4项）。不自动填入，只做提示。 */
+.handoffChip{margin:0 6px 6px 0;padding:4px 10px;font-size:13px;border:1px dashed var(--control-line);border-radius:999px;background:var(--space-component-surface);color:var(--action);cursor:pointer;min-height:0}
+.handoffChip:hover{border-style:solid;border-color:var(--action)}
+.handoffChip:disabled{opacity:.5;cursor:default;border-style:solid;border-color:var(--line);color:var(--muted)}
+.assignment select{width:100%;min-width:0}
+.recovery{margin-top:12px;padding:12px 14px;border:1px solid #e0c29b;border-radius:8px;background:#fff5e5}
+.recovery p{margin:0 0 10px}
+.recovery h3{margin:0 0 10px;font-size:16px}
+.recoveryRequests{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.recoveryRequests li{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.recoveryRequests span{min-width:0;flex:1;overflow-wrap:anywhere}
+.owner{font-weight:650;margin-top:10px}
+.outcome{padding-left:12px;border-left:3px solid var(--line);font-size:14px}
+.waiting{padding:12px 14px;border-radius:8px;background:#f5eddc;font-size:14px}
+.waiting ul{padding:0;list-style:none;margin:4px 0 0}
+.waiting li+li{margin-top:10px}
+.waiting li>span{display:block;color:#594b25;font-size:13px}
+.primaryAction{margin-top:16px}
+.details{margin-top:16px;padding-top:6px;border-top:1px solid var(--line)}
+.details>summary{min-height:44px;display:list-item;margin-left:18px}
+.details h4{margin:18px 0 8px;font-size:15px}
+.resources ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.resources li{min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--space-component-surface)}
+.resources p{margin:4px 0 0}
+.task form{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+@media(max-width:620px){.task,.pool,.poolTask{padding:14px}.heading{gap:8px}.primaryAction>button{width:100%}.waiting{padding:10px 12px}.details>summary{font-size:14px}.teamSummary{padding:14px}.poolFilters{display:grid;grid-template-columns:1fr}.poolFilters button{width:100%}}

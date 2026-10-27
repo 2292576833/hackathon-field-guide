@@ -1,0 +1,50 @@
+.panel, .action, .record, .switch { min-width: 0; max-width: 100%; overflow-wrap: anywhere; color: var(--ink, #21201c); }
+.panel { background: var(--space-component-surface); padding: clamp(16px, 3vw, 28px); margin-block: 18px; border: 1px solid var(--line, #d9d4c8); border-radius: 16px; }
+.panel :is(h2, h3), .action :is(h3, h4) { margin: 0 0 12px; line-height: 1.4; }
+.panel p, .action p { line-height: 1.7; }
+.kicker { margin: 0 0 8px; color: var(--action); font-size: .8rem; font-weight: 700; }
+.muted, .meta { color: var(--muted, #666257); font-size: .9rem; line-height: 1.7; }
+.form, .list { display: grid; gap: 18px; min-width: 0; }
+.form :is(input:not([type=checkbox]), textarea, select) { width: 100%; min-width: 0; max-width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid var(--control-line); border-radius: 8px; color: var(--ink); background: var(--surface); font: inherit; box-sizing: border-box; }
+.form textarea { resize: vertical; }
+.boundary { border: 0; padding: 0; margin: 0; min-width: 0; max-width: 100%; }
+.choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.actions, .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; min-width: 0; }
+.primary, .secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; max-width: 100%; padding: 10px 14px; border: 1px solid var(--action); border-radius: 8px; font: inherit; font-weight: 650; line-height: 1.5; text-align: center; white-space: normal; overflow-wrap: anywhere; cursor: pointer; text-decoration: none; box-sizing: border-box; }
+.primary { color: var(--surface); background: var(--action); }
+.primary:hover:not(:disabled) { background: var(--action-hover); }
+.secondary { color: #6d3022; background: var(--space-component-surface); border-color: #9b8171; }
+.primary:disabled, .secondary:disabled { cursor: default; opacity: .6; }
+:is(.panel, .action, .switch) :is(button, a, input, select, textarea, summary):focus-visible { outline: 3px solid var(--action); outline-offset: 3px; }
+.previewSection { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line, #d9d4c8); }
+.preview { --notice-accent: var(--action); background: var(--surface); padding: 18px; min-width: 0; max-width: 100%; border: 1px solid var(--line); border-top: 4px solid var(--notice-accent); border-radius: 10px; overflow-wrap: anywhere; }
+.preview h4 { color: var(--notice-accent); font-size: 1.2rem; line-height: 1.5; margin: 8px 0 16px; }
+.preview .kicker { color: var(--notice-accent); }
+.body { white-space: pre-wrap; line-height: 1.85; margin-bottom: 0; }
+.letter { padding: clamp(18px, 4vw, 30px); border-radius: 2px; background: #fffefb; }
+.orange { --notice-accent: var(--action); }
+.blue { --notice-accent: #2563a5; }
+.green { --notice-accent: #237454; }
+.slate { --notice-accent: #394451; }
+.action { padding-top: 12px; }
+.actionPanel { margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 16px; background: #fffaf4; min-width: 0; }
+.record { display: grid; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+.record p { margin: 0; }
+.badge { border-radius: 20px; background: var(--tint); padding: 5px 10px; color: #8b301e; font-size: .85rem; font-weight: 650; }
+.check { display: flex; gap: 10px; align-items: flex-start; min-height: 44px; line-height: 1.7; padding-block: 10px; cursor: pointer; }
+.check input { margin: 4px 0 0; width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--action); }
+.warning, .empty, .switch { padding: 12px 16px; background: var(--warning-bg); color: #785012; border: 1px solid #d4b886; border-radius: 10px; line-height: 1.7; }
+.empty { background: var(--paper); color: var(--muted); border-color: var(--line); }
+.switch { margin-block: 16px; }
+.details { margin-top: 18px; }
+.details summary { min-height: 44px; font-weight: 650; line-height: 1.7; cursor: pointer; }
+.identity { padding-block: 8px; }
+@media (max-width: 600px) {
+  .panel { padding: 16px 12px; border-radius: 12px; }
+  .choices { grid-template-columns: 1fr; }
+  .actions { align-items: stretch; }
+  .actions > :is(button, a) { flex: 1 1 140px; }
+  .actionPanel { padding: 12px; }
+  .preview { padding: 16px 12px; }
+}
+@media (prefers-reduced-motion: no-preference) { .primary, .secondary { transition: background-color 140ms ease; } }

@@ -1,0 +1,88 @@
+name: hackathon-field-guide
+
+x-application: &application
+  image: hackathon-field-guide:${APP_IMAGE_TAG:-local}
+  build:
+    context: .
+    dockerfile: Dockerfile
+  env_file:
+    - .env.production
+  environment: &application-environment
+    APP_MODE: connected
+    AUTH_ORIGIN: ${AUTH_ORIGIN:?Set an exact HTTPS AUTH_ORIGIN in .env.production}
+    DATABASE_URL: ${DATABASE_URL:?Set a PostgreSQL DATABASE_URL in .env.production}
+    DSH_RUNTIME_PACKAGE_DIRECTORY: /app/.runtime/dsh-runtime/node_modules/@deepseek-ai/dsh
+    NEXT_TELEMETRY_DISABLED: "1"
+  init: true
+  read_only: true
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  tmpfs:
+    - /tmp:rw,nosuid,nodev,size=128m,mode=1777
+    - /app/.runtime/dsh-sessions:rw,nosuid,nodev,size=256m,uid=1000,gid=1000,mode=0700
+    - /app/.runtime/server-control:rw,nosuid,nodev,size=1m,uid=1000,gid=1000,mode=0700
+    - /app/.next/cache:rw,nosuid,nodev,size=128m,uid=1000,gid=1000,mode=0750
+  # Allow the longest accepted DSH request (120s) to settle before process exit.
+  stop_grace_period: 180s
+
+services:
+  postgres:
+    image: ${POSTGRES_IMAGE:-postgres:17-bookworm}
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-fieldguide}
+      POSTGRES_USER: ${POSTGRES_USER:-fieldguide}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a strong database password in .env.production}
+    volumes:
+      - postgres-data:${POSTGRES_DATA_MOUNT:-/var/lib/postgresql/data}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  migrate:
+    <<: *application
+    command: ["npm", "run", "db:migrate"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  web:
+    <<: *application
+    environment:
+      <<: *application-environment
+      # This composition already has a dedicated worker service.
+      FIELD_GUIDE_EMBEDDED_WORKERS: "0"
+    # Publish only on the host loopback; terminate HTTPS in your reverse proxy.
+    ports:
+      - "127.0.0.1:${WEB_HOST_PORT:-3000}:3000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      # Public API checks the app's actual PostgreSQL path; no session or secret is required.
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/v1/events',{signal:AbortSignal.timeout(5000)}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 7s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+  worker:
+    <<: *application
+    command: ["npm", "run", "worker"]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

@@ -1,0 +1,14 @@
+"use client";
+import { useState } from "react";
+import type { ProjectMember, TeamMember } from "../modules/projects/model.ts";
+import { api, dateText, useApi } from "./client-api.ts";
+import { Feedback, Field } from "./site-shell.tsx";
+import { useAction } from "./workflow.tsx";
+import { memberLabel } from "./member-display.ts";
+import styles from "./site.module.css";
+
+type NamedMember = (ProjectMember | TeamMember) & { displayName?: string | null };
+export function MembershipActions({ scope, id, revision, userId, manager, members, reload }: { scope: "projects" | "teams"; id: string; revision: number; userId: string; manager: boolean; members: NamedMember[]; reload: () => Promise<void> }) {
+  const base = `/${scope}/${id}`; const [history, setHistory] = useState(false); const roster = useApi<{ members: NamedMember[] }>(history ? base + "/members?history=true" : null); const [target, setTarget] = useState(""); const [confirm, setConfirm] = useState(false); const action = useAction();
+  return <section className={styles.panel}><h2>成员历史与管理交接</h2><Feedback error={action.error ?? roster.error} notice={action.notice}/><label className={styles.check}><input type="checkbox" checked={history} onChange={event => setHistory(event.target.checked)}/>查看活跃和已退出成员历史</label>{history && <ul className={styles.list}>{roster.data?.members.map(member => <li key={member.membershipId}>{memberLabel(member,userId,roster.data?.members ?? members)} · {member.role === "captain" ? "队长" : member.role === "manager" ? "项目管理员" : scope === "teams" ? "队员" : "项目成员"} · {member.status === "active" ? "活跃" : member.status === "left" ? "已退出" : "已移除"}<p className={styles.muted}>加入 {dateText(member.joinedAt)} · 退出 {dateText(member.leftAt)}</p></li>)}</ul>}{manager && <><p className={styles.muted}>交接将在一次操作中把所选活跃成员设为{scope === "teams" ? "队长" : "项目管理员"}，并将你改为普通成员；你的成员关系保留。其他管理员保持原角色。</p><Field label="管理接管人"><select value={target} onChange={event => { setTarget(event.target.value); setConfirm(false); }}><option value="">请选择另一名活跃成员</option>{members.filter(member => member.userId !== userId && member.status === "active").map(member => <option key={member.userId} value={member.userId}>{memberLabel(member,userId,members)} · {member.role === "captain" ? "队长" : member.role === "manager" ? "项目管理员" : scope === "teams" ? "队员" : "项目成员"}</option>)}</select></Field><label className={styles.check}><input type="checkbox" checked={confirm} onChange={event => setConfirm(event.target.checked)}/>确认将本人管理角色转交给所选成员。</label><button className={styles.secondary} disabled={action.busy || !confirm || !target} onClick={() => void action.run(async () => { await api(`${base}/${scope === "teams" ? "captain-transfer" : "management-transfer"}`, { method: "POST", body: { expectedRevision: revision, targetUserId: target } }); setConfirm(false); await reload(); await roster.reload(); }, "管理角色已交接。项目角色发生变化的成员需重新确认可用时间。")}>确认一次性交接管理角色</button></>}</section>;
+}

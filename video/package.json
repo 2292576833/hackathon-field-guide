@@ -1,0 +1,22 @@
+{
+  "name": "hackathon-field-guide-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "《草根黑客松情报局》项目纪录视频（Remotion）",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts ProjectRecord ../docs/宣传/项目纪录视频.mp4",
+    "still": "remotion still src/index.ts ProjectRecord ../docs/宣传/preview.png"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.533",
+    "@remotion/google-fonts": "4.0.533",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "remotion": "4.0.533"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "typescript": "5.9.3"
+  }
+}

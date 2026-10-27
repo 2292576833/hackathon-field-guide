@@ -1,0 +1,9 @@
+-- PPT module persistence proposal only. The coordinating session owns real migrations.
+-- Do not create a second ppt_outlines store: personal_ai_artifacts is the owner-scoped durable store.
+-- Existing root migration 021_personal_dsh_workspaces.sql already provides:
+--   kind CHECK includes 'ppt'; user_id/session_id foreign keys; JSONB data;
+--   personal_ai_artifacts_owner(user_id,kind,created_at DESC,id).
+-- No additional DDL is required for this module version.
+-- Composition must pass the root PersonalAiPort and FreshSessionGuard to every private operation.
+-- Saved data shape is PptOutline(schemaVersion=1), including bound inputSnapshot and facts.
+-- root must apply its existing migration before enabling POST /me/ppt/outlines.
